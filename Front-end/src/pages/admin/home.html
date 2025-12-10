@@ -1,233 +1,1004 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <title>Registro de Pontos - IN ROTA Admin</title>
+    
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/Front-end/src/style/admin/home.css">
+
+</head>
+
+<body>
+    <!-- Barra Superior -->
+    <div class="topo">
+        <div class="logo-container">
+            <img src="/Front-end/images/logo.png" class="logo" alt="IN ROTA Logo">
+        </div>
+        
+        <div class="user-controls">
+            <div class="perfil" id="profileBtn">
+                <img src="/Front-end/images/fotoUsuario.png" alt="Foto do usuário" class="user-avatar">
+                <span class="user-name">Administrador</span>
+            </div>
+            
+            <div class="menu-toggle" id="menuToggle">
+                <div class="linha"></div>
+                <div class="linha"></div>
+                <div class="linha"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra Lateral (Menu) -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="user-info">
+                <img src="/Front-end/images/fotoUsuario.png" alt="Foto do usuário" class="sidebar-avatar">
+                <div class="user-details">
+                    <h4>Administrador</h4>
+                    <p>admin@inrota.com</p>
+                </div>
+            </div>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="home.html" class="menu-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            
+            <a href="perfil_admin.html" class="menu-item">
+                <i class="fas fa-user"></i>
+                <span>Meu Perfil</span>
+            </a>
+            
+            <a href="pontos.html" class="menu-item active">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Registro de Pontos</span>
+            </a>
+            
+            <a href="eventos.html" class="menu-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Gerenciar Eventos</span>
+            </a>
+            
+            <a href="parceiros.html" class="menu-item">
+                <i class="fas fa-handshake"></i>
+                <span>Parceiros</span>
+            </a>
+            
+            <a href="usuarios.html" class="menu-item">
+                <i class="fas fa-users"></i>
+                <span>Usuários</span>
+            </a>
+            
+            <div class="menu-divider"></div>
+            
+            <a href="configuracoes.html" class="menu-item">
+                <i class="fas fa-cog"></i>
+                <span>Configurações</span>
+            </a>
+            
+            <a href="ajuda.html" class="menu-item">
+                <i class="fas fa-question-circle"></i>
+                <span>Ajuda e Suporte</span>
+            </a>
+            
+            <a href="#" class="menu-item logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Sair</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <p>IN ROTA Admin v1.0</p>
+        </div>
+    </div>
+
+    <!-- Overlay para fechar menu -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+        <!-- Barra de Pesquisa Aprimorada -->
+        <div class="search-container">
+            <div class="search-box" id="searchBox">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" id="searchInput" placeholder="Busque por locais, pontos turísticos, restaurantes...">
+                <i class="fas fa-microphone mic-icon" id="micIcon"></i>
+                
+                <!-- Sugestões de Pesquisa -->
+                <div class="search-suggestions" id="searchSuggestions">
+                    <!-- Sugestões serão carregadas dinamicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Container do Mapa -->
+        <div class="map-container">
+            <div id="map"></div>
+            
+            <!-- Ícone de mira -->
+            <i class="fas fa-crosshairs crosshair"></i>
+            
+            <!-- Controles do Mapa -->
+            <div class="map-controls">
+                <button class="map-btn" id="locateBtn" title="Minha Localização">
+                    <i class="fas fa-location-arrow"></i>
+                </button>
+                <button class="map-btn" id="zoomInBtn" title="Aumentar Zoom">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <button class="map-btn" id="zoomOutBtn" title="Diminuir Zoom">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ações Rápidas -->
+    <div class="quick-actions">
+        <div class="quick-action" id="newPointBtn">
+            <div class="quick-action-icon">
+                <i class="fas fa-plus"></i>
+            </div>
+            <h4 class="quick-action-title">Novo Ponto</h4>
+            <p class="quick-action-desc">Cadastre um novo ponto no mapa</p>
+        </div>
+        
+        <div class="quick-action" id="viewHistoryBtn">
+            <div class="quick-action-icon">
+                <i class="fas fa-history"></i>
+            </div>
+            <h4 class="quick-action-title">Histórico</h4>
+            <p class="quick-action-desc">Veja todos os pontos cadastrados</p>
+        </div>
+        
+        <div class="quick-action" id="exportDataBtn">
+            <div class="quick-action-icon">
+                <i class="fas fa-download"></i>
+            </div>
+            <h4 class="quick-action-title">Exportar Dados</h4>
+            <p class="quick-action-desc">Exporte os pontos para CSV ou JSON</p>
+        </div>
+        
+        <div class="quick-action" id="importDataBtn">
+            <div class="quick-action-icon">
+                <i class="fas fa-upload"></i>
+            </div>
+            <h4 class="quick-action-title">Importar Dados</h4>
+            <p class="quick-action-desc">Importe dados de pontos em massa</p>
+        </div>
+    </div>
+
+    <!-- Modal de Cadastro de Ponto -->
+    <div class="modal" id="pointModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-map-marker-alt"></i> Cadastrar Novo Ponto</h2>
+                <button class="modal-close" id="closePointModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="pointForm">
+                    <div class="form-group">
+                        <label class="form-label">Nome do Ponto</label>
+                        <input type="text" class="form-control" id="pointName" placeholder="Ex: Museu do Frevo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Categoria</label>
+                        <div class="categories">
+                            <div class="category-tag active" data-category="cultural">Cultural</div>
+                            <div class="category-tag" data-category="restaurant">Restaurante</div>
+                            <div class="category-tag" data-category="leisure">Lazer</div>
+                            <div class="category-tag" data-category="hotel">Hotel</div>
+                            <div class="category-tag" data-category="shopping">Compras</div>
+                            <div class="category-tag" data-category="museum">Museu</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Latitude</label>
+                            <input type="text" class="form-control" id="pointLat" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Longitude</label>
+                            <input type="text" class="form-control" id="pointLng" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Endereço</label>
+                        <input type="text" class="form-control" id="pointAddress" placeholder="Endereço será preenchido automaticamente" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Imagem do Ponto</label>
+                        <div class="image-preview" id="imagePreview">
+                            <i class="fas fa-image preview-icon"></i>
+                            <span class="preview-text">Clique para selecionar uma imagem</span>
+                        </div>
+                        <input type="file" id="pointImage" accept="image/*" style="display: none;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Descrição / Curiosidades</label>
+                        <textarea class="form-control" id="pointDescription" rows="4" placeholder="Descreva este ponto turístico..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Horário de Funcionamento</label>
+                        <input type="text" class="form-control" id="pointHours" placeholder="Ex: Seg-Sex: 9h-18h, Sáb: 10h-16h">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Telefone de Contato</label>
+                        <input type="tel" class="form-control" id="pointPhone" placeholder="(81) 99999-9999">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Site / Redes Sociais</label>
+                        <input type="url" class="form-control" id="pointWebsite" placeholder="https://exemplo.com">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelPointBtn">Cancelar</button>
+                <button class="btn btn-success" id="savePointBtn">
+                    <i class="fas fa-save"></i>
+                    Salvar Ponto
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Histórico -->
+    <div class="modal" id="historyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-history"></i> Histórico de Pontos</h2>
+                <button class="modal-close" id="closeHistoryModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="points-list" id="pointsList">
+                    <!-- Pontos serão carregados dinamicamente -->
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="closeHistoryBtn">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-    <link rel="stylesheet" href="/src/style/admin/home.css" />
-
-    <title>Registro de Pontos</title>
+    
+    <!-- JavaScript Personalizado -->
     <script>
-      // INICIAR MAPA LEAFLET
+        // Elementos DOM
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarClose = document.getElementById('sidebarClose');
+        const overlay = document.getElementById('overlay');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const profileBtn = document.getElementById('profileBtn');
+        const searchInput = document.getElementById('searchInput');
+        const searchBox = document.getElementById('searchBox');
+        const searchSuggestions = document.getElementById('searchSuggestions');
+        const micIcon = document.getElementById('micIcon');
+        const newPointBtn = document.getElementById('newPointBtn');
+        const viewHistoryBtn = document.getElementById('viewHistoryBtn');
+        const exportDataBtn = document.getElementById('exportDataBtn');
+        const importDataBtn = document.getElementById('importDataBtn');
+        const pointModal = document.getElementById('pointModal');
+        const historyModal = document.getElementById('historyModal');
+        const closePointModal = document.getElementById('closePointModal');
+        const closeHistoryModal = document.getElementById('closeHistoryModal');
+        const cancelPointBtn = document.getElementById('cancelPointBtn');
+        const savePointBtn = document.getElementById('savePointBtn');
+        const closeHistoryBtn = document.getElementById('closeHistoryBtn');
+        const pointForm = document.getElementById('pointForm');
+        const pointImage = document.getElementById('pointImage');
+        const imagePreview = document.getElementById('imagePreview');
+        const pointsList = document.getElementById('pointsList');
+        const categoryTags = document.querySelectorAll('.category-tag');
+        const locateBtn = document.getElementById('locateBtn');
+        const zoomInBtn = document.getElementById('zoomInBtn');
+        const zoomOutBtn = document.getElementById('zoomOutBtn');
 
-      const iconeGrande = L.icon({
-        iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-        iconSize: [45, 70],
-        iconAnchor: [22, 70],
-        popupAnchor: [1, -34],
-      });
+        // Dados
+        let map;
+        let markers = [];
+        let currentLat = null;
+        let currentLng = null;
+        let selectedCategory = 'cultural';
+        let pontos = JSON.parse(localStorage.getItem('adminPontos')) || [];
 
-      const map = L.map("mapa").setView([-8.0476, -34.877], 10); // Recife
+        // Sugestões de busca pré-definidas
+        const searchSuggestionsData = [
+            {
+                id: 1,
+                title: "Museu do Frevo",
+                category: "cultural",
+                address: "Praça do Arsenal, Recife Antigo",
+                icon: "museum"
+            },
+            {
+                id: 2,
+                title: "Instituto Ricardo Brennand",
+                category: "cultural",
+                address: "Várzea, Recife",
+                icon: "museum"
+            },
+            {
+                id: 3,
+                title: "Restaurante Ponte Nova",
+                category: "restaurant",
+                address: "Cais da Alfândega, Recife Antigo",
+                icon: "restaurant"
+            },
+            {
+                id: 4,
+                title: "Parque da Jaqueira",
+                category: "leisure",
+                address: "Jaqueira, Recife",
+                icon: "leisure"
+            },
+            {
+                id: 5,
+                title: "Shopping Recife",
+                category: "shopping",
+                address: "Cais de Santa Rita, Recife",
+                icon: "shopping"
+            },
+            {
+                id: 6,
+                title: "Marco Zero",
+                category: "cultural",
+                address: "Recife Antigo",
+                icon: "cultural"
+            },
+            {
+                id: 7,
+                title: "Praia de Boa Viagem",
+                category: "leisure",
+                address: "Boa Viagem, Recife",
+                icon: "leisure"
+            },
+            {
+                id: 8,
+                title: "Mercado da Boa Vista",
+                category: "shopping",
+                address: "Boa Vista, Recife",
+                icon: "shopping"
+            }
+        ];
 
-      // Limitar o mapa só para Pernambuco
-      map.setMaxBounds([
-        [-9.6, -41.5], // sudoeste de PE
-        [-6.0, -32.0], // nordeste de PE
-      ]);
-
-      // Impedir zoom out exagerado (opcional)
-      map.setMinZoom(8);
-
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-      }).addTo(map);
-
-      let pontos = JSON.parse(localStorage.getItem("pontos")) || [];
-
-      let ultimoLat = null;
-      let ultimoLng = null;
-
-      // ABRIR POPUP DE CADASTRO AO CLICAR NO MAPA
-      map.on("click", (e) => {
-        ultimoLat = e.latlng.lat;
-        ultimoLng = e.latlng.lng;
-
-        document.getElementById("popup-cadastro").classList.remove("hidden");
-      });
-
-      // IMPORTAR IMAGEM
-      document.getElementById("btn-importar").addEventListener("click", () => {
-        document.getElementById("ponto-imagem").click();
-      });
-
-      document
-        .getElementById("ponto-imagem")
-        .addEventListener("change", (e) => {
-          const file = e.target.files[0];
-          if (!file) return;
-
-          const reader = new FileReader();
-          reader.onload = () => {
-            const preview = document.getElementById("imagem-preview");
-            preview.style.backgroundImage = `url(${reader.result})`;
-            preview.style.backgroundSize = "cover";
-            preview.style.color = "transparent";
-          };
-          reader.readAsDataURL(file);
-        });
-
-      // SALVAR PONTO
-      document.getElementById("btn-salvar").addEventListener("click", () => {
-        const nome = document.getElementById("ponto-nome").value;
-        const desc = document.getElementById("ponto-desc").value;
-        const imgInput = document.getElementById("ponto-imagem");
-
-        if (!nome || !desc || imgInput.files.length === 0) {
-          alert("Preencha todos os campos!");
-          return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = () => {
-          const lat = ultimoLat;
-          const lng = ultimoLng;
-
-          fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
-          )
-            .then((res) => res.json())
-            .then((data) => {
-              const endereco = data.display_name || "Local não encontrado";
-
-              const novoPonto = {
-                nome,
-                desc,
-                imagem: reader.result,
-                local: endereco,
-                data: new Date().toLocaleString(),
-                lat,
-                lng,
-              };
-
-              pontos.push(novoPonto);
-              localStorage.setItem("pontos", JSON.stringify(pontos));
-
-              L.marker([lat, lng], { icon: iconeGrande }).addTo(map);
-
-              carregarHistorico();
-
-              // trocar popups
-              document.getElementById("popup-cadastro").classList.add("hidden");
-              document
-                .getElementById("popup-historico")
-                .classList.remove("hidden");
-            });
+        // Ícones por categoria
+        const categoryIcons = {
+            cultural: { icon: 'fas fa-landmark', color: '#8e44ad' },
+            restaurant: { icon: 'fas fa-utensils', color: '#e74c3c' },
+            leisure: { icon: 'fas fa-umbrella-beach', color: '#3498db' },
+            hotel: { icon: 'fas fa-hotel', color: '#2ecc71' },
+            shopping: { icon: 'fas fa-shopping-bag', color: '#f39c12' },
+            museum: { icon: 'fas fa-museum', color: '#1abc9c' }
         };
 
-        reader.readAsDataURL(imgInput.files[0]);
-      });
+        // Inicializar
+        function initialize() {
+            // Event Listeners para o menu lateral
+            menuToggle.addEventListener('click', toggleSidebar);
+            sidebarClose.addEventListener('click', toggleSidebar);
+            overlay.addEventListener('click', toggleSidebar);
+            
+            // Event Listener para logout
+            logoutBtn.addEventListener('click', handleLogout);
+            
+            // Event Listener para perfil
+            profileBtn.addEventListener('click', () => {
+                window.location.href = 'perfil_admin.html';
+            });
+            
+            // Event Listeners para busca
+            searchInput.addEventListener('input', handleSearch);
+            searchInput.addEventListener('focus', showSuggestions);
+            searchBox.addEventListener('focusout', hideSuggestionsAfterDelay);
+            
+            // Event Listener para microfone
+            micIcon.addEventListener('click', startVoiceSearch);
+            
+            // Event Listeners para ações rápidas
+            newPointBtn.addEventListener('click', showPointModal);
+            viewHistoryBtn.addEventListener('click', showHistoryModal);
+            exportDataBtn.addEventListener('click', exportData);
+            importDataBtn.addEventListener('click', importData);
+            
+            // Event Listeners para modais
+            closePointModal.addEventListener('click', () => pointModal.classList.remove('active'));
+            closeHistoryModal.addEventListener('click', () => historyModal.classList.remove('active'));
+            cancelPointBtn.addEventListener('click', () => pointModal.classList.remove('active'));
+            closeHistoryBtn.addEventListener('click', () => historyModal.classList.remove('active'));
+            savePointBtn.addEventListener('click', savePoint);
+            
+            // Event Listeners para categorias
+            categoryTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    categoryTags.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedCategory = this.getAttribute('data-category');
+                });
+            });
+            
+            // Event Listeners para imagem
+            imagePreview.addEventListener('click', () => pointImage.click());
+            pointImage.addEventListener('change', handleImageSelect);
+            
+            // Event Listeners para controles do mapa
+            locateBtn.addEventListener('click', locateUser);
+            zoomInBtn.addEventListener('click', () => map.zoomIn());
+            zoomOutBtn.addEventListener('click', () => map.zoomOut());
+            
+            // Event Listener para clique no mapa
+            if (map) {
+                map.on('click', handleMapClick);
+            }
+            
+            // Inicializar mapa
+            initMap();
+            
+            // Carregar pontos existentes
+            loadPoints();
+        }
 
-      //  CARREGAR HISTÓRICO
-      function carregarHistorico() {
-        const lista = document.getElementById("lista-pontos");
-        lista.innerHTML = "";
+        // Alternar barra lateral
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+            
+            if (sidebar.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
 
-        pontos.forEach((p, index) => {
-          const item = document.createElement("li");
-          item.innerHTML = `
-      <strong>${p.nome}</strong><br>
-      Local: ${p.local}<br>
-      Data: ${p.data}<br>
-      <button class="btn-editar" onclick="editar(${index})">Editar</button>
-      <button class="btn-remover" onclick="remover(${index})">Remover</button>
-    `;
-          lista.appendChild(item);
-        });
-      }
+        // Inicializar mapa Leaflet
+        function initMap() {
+            // Centro em Recife
+            map = L.map('map').setView([-8.0476, -34.877], 13);
+            
+            // Tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            
+            // Limitar mapa a Pernambuco
+            map.setMaxBounds([
+                [-9.6, -41.5],
+                [-6.0, -32.0]
+            ]);
+            
+            // Evento de clique no mapa
+            map.on('click', handleMapClick);
+        }
 
-      carregarHistorico();
+        // Manipular clique no mapa
+        function handleMapClick(e) {
+            currentLat = e.latlng.lat;
+            currentLng = e.latlng.lng;
+            
+            // Atualizar campos no formulário
+            document.getElementById('pointLat').value = currentLat.toFixed(6);
+            document.getElementById('pointLng').value = currentLng.toFixed(6);
+            
+            // Buscar endereço via Nominatim
+            fetchAddress(currentLat, currentLng);
+            
+            // Mostrar modal se não estiver visível
+            if (!pointModal.classList.contains('active')) {
+                pointModal.classList.add('active');
+            }
+        }
 
-      //  EDITAR
-      function editar(index) {
-        const p = pontos[index];
+        // Buscar endereço via Nominatim
+        function fetchAddress(lat, lng) {
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+                .then(res => res.json())
+                .then(data => {
+                    const address = data.display_name || 'Endereço não encontrado';
+                    document.getElementById('pointAddress').value = address;
+                })
+                .catch(() => {
+                    document.getElementById('pointAddress').value = 'Erro ao buscar endereço';
+                });
+        }
 
-        document.getElementById("ponto-nome").value = p.nome;
-        document.getElementById("ponto-desc").value = p.desc;
+        // Mostrar modal de ponto
+        function showPointModal() {
+            // Limpar formulário
+            pointForm.reset();
+            imagePreview.innerHTML = `
+                <i class="fas fa-image preview-icon"></i>
+                <span class="preview-text">Clique para selecionar uma imagem</span>
+            `;
+            imagePreview.classList.remove('has-image');
+            
+            // Resetar categoria
+            categoryTags.forEach(tag => tag.classList.remove('active'));
+            document.querySelector('.category-tag[data-category="cultural"]').classList.add('active');
+            selectedCategory = 'cultural';
+            
+            // Mostrar modal
+            pointModal.classList.add('active');
+        }
 
-        const preview = document.getElementById("imagem-preview");
-        preview.style.backgroundImage = `url(${p.imagem})`;
-        preview.style.backgroundSize = "cover";
-        preview.style.color = "transparent";
+        // Manipular seleção de imagem
+        function handleImageSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            if (!file.type.startsWith('image/')) {
+                showNotification('Por favor, selecione um arquivo de imagem válido', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.innerHTML = `<img src="${e.target.result}" class="preview-image" alt="Pré-visualização">`;
+                imagePreview.classList.add('has-image');
+            };
+            reader.readAsDataURL(file);
+        }
 
-        document.getElementById("popup-historico").classList.add("hidden");
-        document.getElementById("popup-cadastro").classList.remove("hidden");
+        // Salvar ponto
+        function savePoint() {
+            const pointName = document.getElementById('pointName').value;
+            const pointDescription = document.getElementById('pointDescription').value;
+            const pointAddress = document.getElementById('pointAddress').value;
+            const pointHours = document.getElementById('pointHours').value;
+            const pointPhone = document.getElementById('pointPhone').value;
+            const pointWebsite = document.getElementById('pointWebsite').value;
+            
+            if (!pointName || !pointDescription || !currentLat || !currentLng) {
+                showNotification('Preencha todos os campos obrigatórios', 'error');
+                return;
+            }
+            
+            const pointImageBase64 = pointImage.files.length > 0 ? 
+                getBase64FromInput(pointImage) : null;
+            
+            const novoPonto = {
+                id: Date.now(),
+                nome: pointName,
+                descricao: pointDescription,
+                categoria: selectedCategory,
+                lat: currentLat,
+                lng: currentLng,
+                endereco: pointAddress,
+                horario: pointHours,
+                telefone: pointPhone,
+                website: pointWebsite,
+                imagem: pointImageBase64,
+                dataCriacao: new Date().toISOString(),
+                criadoPor: 'Administrador'
+            };
+            
+            pontos.push(novoPonto);
+            localStorage.setItem('adminPontos', JSON.stringify(pontos));
+            
+            // Adicionar marcador no mapa
+            addMarkerToMap(novoPonto);
+            
+            // Mostrar notificação
+            showNotification('Ponto cadastrado com sucesso!', 'success');
+            
+            // Fechar modal e limpar formulário
+            pointModal.classList.remove('active');
+            pointForm.reset();
+            
+            // Atualizar lista de pontos
+            loadPoints();
+        }
 
-        pontos.splice(index, 1);
-        localStorage.setItem("pontos", JSON.stringify(pontos));
-      }
+        // Converter imagem para Base64
+        function getBase64FromInput(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const reader = new FileReader();
+                return new Promise((resolve) => {
+                    reader.onload = function(e) {
+                        resolve(e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+            return null;
+        }
 
-      // REMOVER
-      function remover(index) {
-        pontos.splice(index, 1);
-        localStorage.setItem("pontos", JSON.stringify(pontos));
-        carregarHistorico();
-      }
+        // Adicionar marcador no mapa
+        function addMarkerToMap(ponto) {
+            const icon = L.divIcon({
+                className: 'custom-marker',
+                html: `<div style="background: ${categoryIcons[ponto.categoria].color}; 
+                       width: 30px; height: 30px; border-radius: 50%; 
+                       display: flex; align-items: center; justify-content: center;
+                       color: white; font-size: 14px; border: 2px solid white;
+                       box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
+                       <i class="${categoryIcons[ponto.categoria].icon}"></i>
+                     </div>`,
+                iconSize: [30, 30],
+                iconAnchor: [15, 15]
+            });
+            
+            const marker = L.marker([ponto.lat, ponto.lng], { icon: icon })
+                .addTo(map)
+                .bindPopup(`
+                    <div style="min-width: 200px;">
+                        <h3 style="margin: 0 0 10px; color: var(--primary-green);">${ponto.nome}</h3>
+                        <p style="margin: 0 0 5px; font-size: 14px;">${ponto.descricao.substring(0, 100)}...</p>
+                        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                            <span style="background: ${categoryIcons[ponto.categoria].color}; 
+                                color: white; padding: 2px 8px; border-radius: 10px; font-size: 12px;">
+                                ${ponto.categoria}
+                            </span>
+                            <button onclick="viewPointDetails(${ponto.id})" 
+                                style="background: var(--accent-blue); color: white; 
+                                border: none; padding: 4px 8px; border-radius: 4px; 
+                                cursor: pointer; font-size: 12px;">
+                                Ver detalhes
+                            </button>
+                        </div>
+                    </div>
+                `);
+            
+            markers.push(marker);
+        }
 
-      // VOLTAR AO MAPA
-      document.getElementById("btn-voltar").addEventListener("click", () => {
-        document.getElementById("popup-historico").classList.add("hidden");
-      });
+        // Carregar pontos no mapa
+        function loadPoints() {
+            // Limpar marcadores anteriores
+            markers.forEach(marker => map.removeLayer(marker));
+            markers = [];
+            
+            // Adicionar novos marcadores
+            pontos.forEach(ponto => addMarkerToMap(ponto));
+        }
+
+        // Mostrar modal de histórico
+        function showHistoryModal() {
+            pointsList.innerHTML = '';
+            
+            if (pontos.length === 0) {
+                pointsList.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: var(--text-light);">
+                        <i class="fas fa-map-marker-alt" style="font-size: 48px; margin-bottom: 20px;"></i>
+                        <h3>Nenhum ponto cadastrado</h3>
+                        <p>Comece cadastrando seu primeiro ponto no mapa!</p>
+                    </div>
+                `;
+            } else {
+                pontos.forEach(ponto => {
+                    const pointItem = document.createElement('div');
+                    pointItem.className = 'point-item';
+                    pointItem.innerHTML = `
+                        <div class="point-header">
+                            <div>
+                                <h3 class="point-title">${ponto.nome}</h3>
+                                <span class="point-category">${ponto.categoria}</span>
+                            </div>
+                            <small>${new Date(ponto.dataCriacao).toLocaleDateString()}</small>
+                        </div>
+                        <p class="point-description">${ponto.descricao.substring(0, 150)}...</p>
+                        <div class="point-footer">
+                            <span>${ponto.endereco}</span>
+                            <div class="point-actions">
+                                <button class="point-btn edit" onclick="editPoint(${ponto.id})">Editar</button>
+                                <button class="point-btn delete" onclick="deletePoint(${ponto.id})">Excluir</button>
+                            </div>
+                        </div>
+                    `;
+                    pointsList.appendChild(pointItem);
+                });
+            }
+            
+            historyModal.classList.add('active');
+        }
+
+        // Editar ponto
+        function editPoint(id) {
+            const ponto = pontos.find(p => p.id === id);
+            if (!ponto) return;
+            
+            // Preencher formulário
+            document.getElementById('pointName').value = ponto.nome;
+            document.getElementById('pointDescription').value = ponto.descricao;
+            document.getElementById('pointLat').value = ponto.lat;
+            document.getElementById('pointLng').value = ponto.lng;
+            document.getElementById('pointAddress').value = ponto.endereco;
+            document.getElementById('pointHours').value = ponto.horario || '';
+            document.getElementById('pointPhone').value = ponto.telefone || '';
+            document.getElementById('pointWebsite').value = ponto.website || '';
+            
+            // Definir categoria
+            categoryTags.forEach(tag => tag.classList.remove('active'));
+            document.querySelector(`.category-tag[data-category="${ponto.categoria}"]`).classList.add('active');
+            selectedCategory = ponto.categoria;
+            
+            // Configurar imagem
+            if (ponto.imagem) {
+                imagePreview.innerHTML = `<img src="${ponto.imagem}" class="preview-image" alt="Pré-visualização">`;
+                imagePreview.classList.add('has-image');
+            }
+            
+            // Atualizar coordenadas atuais
+            currentLat = ponto.lat;
+            currentLng = ponto.lng;
+            
+            // Mostrar modal e remover ponto da lista
+            const index = pontos.findIndex(p => p.id === id);
+            pontos.splice(index, 1);
+            
+            pointModal.classList.add('active');
+            historyModal.classList.remove('active');
+        }
+
+        // Excluir ponto
+        function deletePoint(id) {
+            if (confirm('Tem certeza que deseja excluir este ponto?')) {
+                pontos = pontos.filter(p => p.id !== id);
+                localStorage.setItem('adminPontos', JSON.stringify(pontos));
+                loadPoints();
+                showHistoryModal();
+                showNotification('Ponto excluído com sucesso!', 'success');
+            }
+        }
+
+        // Ver detalhes do ponto
+        function viewPointDetails(id) {
+            const ponto = pontos.find(p => p.id === id);
+            if (!ponto) return;
+            
+            // Criar modal de detalhes
+            const detailsModal = document.createElement('div');
+            detailsModal.className = 'modal active';
+            detailsModal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2><i class="${categoryIcons[ponto.categoria].icon}"></i> ${ponto.nome}</h2>
+                        <button class="modal-close" onclick="this.parentElement.parentElement.remove()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        ${ponto.imagem ? `<img src="${ponto.imagem}" style="width: 100%; border-radius: 10px; margin-bottom: 20px;">` : ''}
+                        <p><strong>Descrição:</strong> ${ponto.descricao}</p>
+                        <p><strong>Endereço:</strong> ${ponto.endereco}</p>
+                        ${ponto.horario ? `<p><strong>Horário:</strong> ${ponto.horario}</p>` : ''}
+                        ${ponto.telefone ? `<p><strong>Telefone:</strong> ${ponto.telefone}</p>` : ''}
+                        ${ponto.website ? `<p><strong>Website:</strong> <a href="${ponto.website}" target="_blank">${ponto.website}</a></p>` : ''}
+                        <p><strong>Categoria:</strong> <span style="background: ${categoryIcons[ponto.categoria].color}; color: white; padding: 2px 8px; border-radius: 10px;">${ponto.categoria}</span></p>
+                        <p><strong>Coordenadas:</strong> ${ponto.lat}, ${ponto.lng}</p>
+                        <p><strong>Cadastrado em:</strong> ${new Date(ponto.dataCriacao).toLocaleString()}</p>
+                        <p><strong>Cadastrado por:</strong> ${ponto.criadoPor}</p>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn btn-secondary" onclick="this.parentElement.parentElement.parentElement.remove()">Fechar</button>
+                        <button class="btn btn-primary" onclick="editPoint(${ponto.id}); this.parentElement.parentElement.parentElement.remove()">Editar</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(detailsModal);
+        }
+
+        // Processar busca
+        function handleSearch() {
+            const query = searchInput.value.toLowerCase();
+            if (query.length < 2) {
+                hideSuggestions();
+                return;
+            }
+            
+            const filtered = searchSuggestionsData.filter(item =>
+                item.title.toLowerCase().includes(query) ||
+                item.address.toLowerCase().includes(query) ||
+                item.category.includes(query)
+            );
+            
+            showSearchSuggestions(filtered);
+        }
+
+        // Mostrar sugestões de busca
+        function showSearchSuggestions(items) {
+            searchSuggestions.innerHTML = '';
+            
+            if (items.length === 0) {
+                searchSuggestions.innerHTML = `
+                    <div class="suggestion-item">
+                        <div class="suggestion-info">
+                            <div class="suggestion-title">Nenhum resultado encontrado</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                items.forEach(item => {
+                    const suggestion = document.createElement('div');
+                    suggestion.className = 'suggestion-item';
+                    suggestion.innerHTML = `
+                        <div class="suggestion-icon ${item.icon}">
+                            <i class="${categoryIcons[item.category].icon}"></i>
+                        </div>
+                        <div class="suggestion-info">
+                            <div class="suggestion-title">${item.title}</div>
+                            <div class="suggestion-category">${item.category}</div>
+                            <div class="suggestion-address">${item.address}</div>
+                        </div>
+                    `;
+                    suggestion.addEventListener('click', () => {
+                        searchInput.value = item.title;
+                        hideSuggestions();
+                        // Centralizar mapa na localização (simulado)
+                        showNotification(`Buscando por: ${item.title}`, 'info');
+                    });
+                    searchSuggestions.appendChild(suggestion);
+                });
+            }
+            
+            searchSuggestions.style.display = 'block';
+        }
+
+        // Mostrar sugestões ao focar
+        function showSuggestions() {
+            showSearchSuggestions(searchSuggestionsData);
+        }
+
+        // Esconder sugestões
+        function hideSuggestions() {
+            searchSuggestions.style.display = 'none';
+        }
+
+        // Esconder sugestões após delay
+        function hideSuggestionsAfterDelay() {
+            setTimeout(hideSuggestions, 200);
+        }
+
+        // Busca por voz
+        function startVoiceSearch() {
+            showNotification('Iniciando busca por voz...', 'info');
+            
+            // Simulação de busca por voz
+            setTimeout(() => {
+                const voiceCommands = ['museu', 'restaurante', 'praia', 'shopping', 'hotel'];
+                const randomCommand = voiceCommands[Math.floor(Math.random() * voiceCommands.length)];
+                searchInput.value = randomCommand;
+                handleSearch();
+                showNotification(`Buscando por: ${randomCommand}`, 'success');
+            }, 1000);
+        }
+
+        // Localizar usuário
+        function locateUser() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const { latitude, longitude } = position.coords;
+                        map.setView([latitude, longitude], 15);
+                        showNotification('Localização encontrada!', 'success');
+                    },
+                    () => {
+                        showNotification('Não foi possível obter sua localização', 'error');
+                    }
+                );
+            } else {
+                showNotification('Geolocalização não suportada pelo navegador', 'error');
+            }
+        }
+
+        // Exportar dados
+        function exportData() {
+            if (pontos.length === 0) {
+                showNotification('Não há dados para exportar', 'warning');
+                return;
+            }
+            
+            const dataStr = JSON.stringify(pontos, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `pontos_inrota_${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            showNotification('Dados exportados com sucesso!', 'success');
+        }
+
+        // Importar dados
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = e => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = event => {
+                    try {
+                        const importedData = JSON.parse(event.target.result);
+                        
+                        if (Array.isArray(importedData)) {
+                            pontos.push(...importedData);
+                            localStorage.setItem('adminPontos', JSON.stringify(pontos));
+                            loadPoints();
+                            showNotification(`${importedData.length} pontos importados com sucesso!`, 'success');
+                        } else {
+                            showNotification('Formato de arquivo inválido', 'error');
+                        }
+                    } catch (error) {
+                        showNotification('Erro ao importar arquivo', 'error');
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+
+        // Processar logout
+        function handleLogout() {
+            showNotification('Saindo da conta...', 'info');
+            
+            setTimeout(() => {
+                window.location.href = '../usuario/login.html';
+            }, 1500);
+        }
+
+        // Mostrar notificação
+        function showNotification(message, type = 'info') {
+            // Criar elemento de notificação
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            
+            // Estilo por tipo
+            switch(type) {
+                case 'success':
+                    notification.style.borderLeftColor = '#2ecc71';
+                    break;
+                case 'error':
+                    notification.style.borderLeftColor = '#e74c3c';
+                    break;
+                case 'warning':
+                    notification.style.borderLeftColor = '#f39c12';
+                    break;
+                case 'info':
+                    notification.style.borderLeftColor = '#3498db';
+                    break;
+            }
+            
+            document.body.appendChild(notification);
+            
+            // Remover após 3 segundos
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 3000);
+        }
+
+        // Inicializar quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', initialize);
     </script>
-  </head>
-
-  <body>
-    <!-- MAPA + MENU SUPERIOR -->
-    <div id="mapa-container">
-      <header>
-        <img src="IMG/logo.png" class="logo" />
-
-        <div class="header-icons">
-          <img src="SVGS/user.svg" class="menu-icon" />
-          <img src="SVGS/hamburguer.svg" class="menu-hamburguer" />
-        </div>
-      </header>
-
-      <div id="search-box">
-        <img src="SVGS/lupa.svg" class="icon-left" />
-        <input type="text" id="search" placeholder="Busque aqui..." />
-        <img src="SVGS/mic.svg" class="icon-right" />
-      </div>
-
-      <div id="mapa"></div>
-
-      <img id="mira" src="SVGS/localizacao.svg" />
-    </div>
-
-    <!-- POP-UP 1: CADASTRO -->
-    <div id="popup-cadastro" class="popup hidden">
-      <div class="popup-box">
-        <h1>CADASTRO DE PONTOS</h1>
-
-        <label>Nome:</label>
-        <input type="text" id="ponto-nome" class="campo" />
-
-        <label>Insira sua imagem:</label>
-        <div id="imagem-preview" class="preview">Tap to load</div>
-        <input type="file" id="ponto-imagem" hidden />
-
-        <button id="btn-importar">Importar Imagem</button>
-
-        <label>Descrição / Curiosidades:</label>
-        <textarea id="ponto-desc" class="campo-desc"></textarea>
-
-        <button id="btn-salvar" class="salvar">Salvar Ponto</button>
-      </div>
-    </div>
-
-    <!-- POP-UP 2: HISTÓRICO -->
-    <div id="popup-historico" class="popup hidden">
-      <div class="popup-box">
-        <h1>Histórico de Pontos</h1>
-
-        <ul id="lista-pontos"></ul>
-
-        <button id="btn-voltar" class="voltar">Voltar ao mapa</button>
-      </div>
-    </div>
-
-    <script src="script.js"></script>
-  </body>
+</body>
 </html>
