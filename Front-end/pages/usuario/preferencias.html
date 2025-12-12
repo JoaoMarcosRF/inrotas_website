@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preferências - IN ROTA</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/style/usuario/preferencias.css">
+</head>
+<body>
+    <!-- Barra Superior -->
+    <div class="topo">
+        <div class="logo-container">
+            <img src="/images/logo.png" class="logo" alt="IN ROTA Logo">
+        </div>
+        
+        <div class="user-controls">
+            <a href="perfil_usuario.html" class="perfil-link">
+                <div class="perfil">
+                    <img src="/images/fotoUsuario.png" alt="Foto do usuário" class="user-avatar">
+                    <span class="user-name">Usuário</span>
+                </div>
+            </a>
+            
+            <div class="menu-toggle" id="menuToggle">
+                <div class="linha"></div>
+                <div class="linha"></div>
+                <div class="linha"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra Lateral (Menu) -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="user-info">
+                <img src="/images/fotoUsuario.png" alt="Foto do usuário" class="sidebar-avatar">
+                <div class="user-details">
+                    <h4>Usuário</h4>
+                    <p>usuario@email.com</p>
+                </div>
+            </div>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="perfil.html" class="menu-item">
+                <i class="fas fa-user"></i>
+                <span>Meu Perfil</span>
+            </a>
+            
+            <a href="preferencias.html" class="menu-item active">
+                <i class="fas fa-heart"></i>
+                <span>Minhas Preferências</span>
+            </a>
+            
+            <a href="rotas_salvas.html" class="menu-item">
+                <i class="fas fa-bookmark"></i>
+                <span>Rotas Salvas</span>
+            </a>
+            
+            <a href="historico.html" class="menu-item">
+                <i class="fas fa-history"></i>
+                <span>Histórico</span>
+            </a>
+            
+            <a href="configuracoes.html" class="menu-item">
+                <i class="fas fa-cog"></i>
+                <span>Configurações</span>
+            </a>
+            
+            <div class="menu-divider"></div>
+            
+            <a href="ajuda.html" class="menu-item">
+                <i class="fas fa-question-circle"></i>
+                <span>Ajuda e Suporte</span>
+            </a>
+            
+            <a href="#" class="menu-item logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Sair</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <p>IN ROTA v1.0</p>
+        </div>
+    </div>
+
+    <!-- Overlay para fechar menu -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Conteúdo Principal -->
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Personalize suas experiências</h1>
+            <p class="subtitle">
+                Selecione seus interesses para personalizar suas recomendações de rotas:
+            </p>
+        </div>
+        
+        <div class="interesses-container">
+            <div class="interesses-grid">
+                <!-- Lazer -->
+                <div class="interesse-card" data-categoria="lazer">
+                    <div class="interesse-icon">
+                        <i class="fas fa-umbrella-beach"></i>
+                    </div>
+                    <div class="interesse-content">
+                        <h3>Lazer</h3>
+                        <p>Parques, praias e áreas de descanso</p>
+                    </div>
+                    <div class="interesse-check">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                
+                <!-- Cultural -->
+                <div class="interesse-card" data-categoria="cultural">
+                    <div class="interesse-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <div class="interesse-content">
+                        <h3>Cultural</h3>
+                        <p>Museus, monumentos e patrimônios</p>
+                    </div>
+                    <div class="interesse-check">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                
+                <!-- Tecnologia -->
+                <div class="interesse-card" data-categoria="tecnologia">
+                    <div class="interesse-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="interesse-content">
+                        <h3>Tecnologia</h3>
+                        <p>Centros de inovação e tecnologia</p>
+                    </div>
+                    <div class="interesse-check">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                
+                <!-- Música -->
+                <div class="interesse-card" data-categoria="musica">
+                    <div class="interesse-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="interesse-content">
+                        <h3>Música</h3>
+                        <p>Shows, casas de música e eventos</p>
+                    </div>
+                    <div class="interesse-check">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                
+                <!-- Eventos -->
+                <div class="interesse-card" data-categoria="eventos">
+                    <div class="interesse-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="interesse-content">
+                        <h3>Eventos</h3>
+                        <p>Festivais, feiras e celebrações</p>
+                    </div>
+                    <div class="interesse-check">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                
+                <!-- Gastronomia -->
+                <div class="interesse-card" data-categoria="gastronomia">
+                    <div class="interesse-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="interesse-content">
+                        <h3>Gastronomia</h3>
+                        <p>Restaurantes, bares e culinária local</p>
+                    </div>
+                    <div class="interesse-check">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                
+                <!-- Viagens -->
+                <div class="interesse-card" data-categoria="viagens">
+                    <div class="interesse-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <div class="interesse-content">
+                        <h3>Viagens</h3>
+                        <p>Pontos turísticos e aventuras</p>
+                    </div>
+                    <div class="interesse-check">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                
+                <!-- Arte -->
+                <div class="interesse-card" data-categoria="arte">
+                    <div class="interesse-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="interesse-content">
+                        <h3>Arte</h3>
+                        <p>Galerias, exposições e artes visuais</p>
+                    </div>
+                    <div class="interesse-check">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                
+                <!-- Natureza -->
+                <div class="interesse-card" data-categoria="natureza">
+                    <div class="interesse-icon">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <div class="interesse-content">
+                        <h3>Natureza</h3>
+                        <p>Trilhas, reservas e paisagens naturais</p>
+                    </div>
+                    <div class="interesse-check">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                
+                <!-- Esportes -->
+                <div class="interesse-card" data-categoria="esportes">
+                    <div class="interesse-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <div class="interesse-content">
+                        <h3>Esportes</h3>
+                        <p>Atividades esportivas e fitness</p>
+                    </div>
+                    <div class="interesse-check">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                
+                <!-- História -->
+                <div class="interesse-card" data-categoria="historia">
+                    <div class="interesse-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="interesse-content">
+                        <h3>História</h3>
+                        <p>Sítios históricos e cultura local</p>
+                    </div>
+                    <div class="interesse-check">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                
+                <!-- Compras -->
+                <div class="interesse-card" data-categoria="compras">
+                    <div class="interesse-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="interesse-content">
+                        <h3>Compras</h3>
+                        <p>Mercados, lojas e centros comerciais</p>
+                    </div>
+                    <div class="interesse-check">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="actions">
+            <div class="selection-info">
+                <p>Selecionados: <span id="selectedCount">0</span> interesses</p>
+                <button class="btn-clear" id="clearAllBtn">
+                    <i class="fas fa-times"></i> Limpar Todos
+                </button>
+            </div>
+            
+            <button class="btn-save" id="saveBtn">
+                <i class="fas fa-save"></i>
+                Salvar Preferências
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Preferências salvas!</h3>
+            <p>Suas preferências foram atualizadas com sucesso.</p>
+            <button class="btn-modal" id="modalOkBtn">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // Elementos DOM
+const menuToggle = document.getElementById('menuToggle');
+const sidebar = document.getElementById('sidebar');
+const sidebarClose = document.getElementById('sidebarClose');
+const overlay = document.getElementById('overlay');
+const interestCards = document.querySelectorAll('.interesse-card');
+const selectedCount = document.getElementById('selectedCount');
+const clearAllBtn = document.getElementById('clearAllBtn');
+const saveBtn = document.getElementById('saveBtn');
+const successModal = document.getElementById('successModal');
+const modalOkBtn = document.getElementById('modalOkBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+
+// Estado das preferências
+let selectedInterests = JSON.parse(localStorage.getItem('userPreferences') || '[]');
+
+// Inicializar
+function initialize() {
+    updateSelectedCount();
+    loadSelectedInterests();
+    
+    // Adicionar eventos
+    menuToggle.addEventListener('click', toggleSidebar);
+    sidebarClose.addEventListener('click', toggleSidebar);
+    overlay.addEventListener('click', toggleSidebar);
+    
+    interestCards.forEach(card => {
+        card.addEventListener('click', () => toggleInterest(card));
+    });
+    
+    clearAllBtn.addEventListener('click', clearAllInterests);
+    saveBtn.addEventListener('click', savePreferences);
+    modalOkBtn.addEventListener('click', () => successModal.style.display = 'none');
+    
+    logoutBtn.addEventListener('click', handleLogout);
+}
+
+// Alternar barra lateral
+function toggleSidebar() {
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+    menuToggle.classList.toggle('active');
+    
+    if (sidebar.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Alternar interesse
+function toggleInterest(card) {
+    const category = card.dataset.categoria;
+    
+    card.classList.toggle('selected');
+    
+    if (card.classList.contains('selected')) {
+        if (!selectedInterests.includes(category)) {
+            selectedInterests.push(category);
+        }
+    } else {
+        selectedInterests = selectedInterests.filter(item => item !== category);
+    }
+    
+    updateSelectedCount();
+    animateCard(card);
+}
+
+// Animar card ao selecionar
+function animateCard(card) {
+    if (card.classList.contains('selected')) {
+        card.style.transform = 'translateY(-5px) scale(1.02)';
+        setTimeout(() => {
+            card.style.transform = 'translateY(-5px)';
+        }, 150);
+    }
+}
+
+// Atualizar contador
+function updateSelectedCount() {
+    selectedCount.textContent = selectedInterests.length;
+    
+    // Atualizar botão salvar
+    if (selectedInterests.length > 0) {
+        saveBtn.disabled = false;
+        saveBtn.style.opacity = '1';
+    } else {
+        saveBtn.disabled = true;
+        saveBtn.style.opacity = '0.7';
+    }
+}
+
+// Carregar interesses selecionados anteriormente
+function loadSelectedInterests() {
+    interestCards.forEach(card => {
+        const category = card.dataset.categoria;
+        if (selectedInterests.includes(category)) {
+            card.classList.add('selected');
+        }
+    });
+}
+
+// Limpar todos os interesses
+function clearAllInterests() {
+    if (selectedInterests.length === 0) return;
+    
+    if (confirm('Tem certeza que deseja limpar todas as preferências?')) {
+        interestCards.forEach(card => {
+            card.classList.remove('selected');
+        });
+        
+        selectedInterests = [];
+        updateSelectedCount();
+        
+        // Feedback visual
+        showNotification('Preferências limpas!', 'info');
+    }
+}
+
+// Salvar preferências
+function savePreferences() {
+    if (selectedInterests.length === 0) {
+        showNotification('Selecione pelo menos um interesse!', 'error');
+        return;
+    }
+    
+    // Simular salvamento
+    const loadingBtn = saveBtn.innerHTML;
+    saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando...';
+    saveBtn.disabled = true;
+    
+    setTimeout(() => {
+        // Salvar no localStorage (simulação)
+        localStorage.setItem('userPreferences', JSON.stringify(selectedInterests));
+        
+        // Restaurar botão
+        saveBtn.innerHTML = loadingBtn;
+        saveBtn.disabled = false;
+        
+        // Mostrar modal de sucesso
+        successModal.style.display = 'flex';
+        
+        // Feedback adicional
+        showNotification('Preferências salvas com sucesso!', 'success');
+        
+        // Log das preferências salvas
+        console.log('Preferências salvas:', selectedInterests);
+    }, 1500);
+}
+
+// Logout
+function handleLogout(e) {
+    e.preventDefault();
+    
+    if (confirm('Tem certeza que deseja sair?')) {
+        // Simular logout
+        showNotification('Saindo da conta...', 'info');
+        
+        setTimeout(() => {
+            // Redirecionar para página de login
+            window.location.href = 'login.html';
+        }, 2000);
+    }
+}
+
+// Mostrar notificação
+function showNotification(message, type = 'info') {
+    // Criar elemento de notificação
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    
+    // Estilos base
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+        font-weight: 500;
+        color: white;
+        max-width: 300px;
+    `;
+    
+    // Cores por tipo
+    switch(type) {
+        case 'success':
+            notification.style.background = '#2ecc71';
+            break;
+        case 'error':
+            notification.style.background = '#e74c3c';
+            break;
+        case 'info':
+            notification.style.background = '#3498db';
+            break;
+        default:
+            notification.style.background = '#3498db';
+    }
+    
+    document.body.appendChild(notification);
+    
+    // Remover após 3 segundos
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+        }
+    }, 3000);
+}
+
+// Adicionar estilos CSS para animações
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
+
+// Inicializar quando o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', initialize);
+    </script>
+</body>
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Criar Nova Rota - Dashboard Parceiros</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/style/parceiro/criar-rota.css">
+</head>
+
+<body>
+    <header>
+        <div class="hamburger-menu" id="hamburgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <!-- INSERIR LOGO AQUI -->
+        <img class="logo" src="/images/logo.png alt=" alt= "Logo da Empresa" />
+
+        <div class="nav-icons">
+            <img src="/images/fotoUsuario.png" alt="profile_icon" />
+            <img src="/SVGS/hamburguer.svg" alt="settings_icon" />
+        </div>
+    </header>
+
+    <aside id="sidebar">
+        <nav>
+            <ul>
+                <li>
+                    <a href="dashboard-parceiros.html">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="minhas-rotas.html">
+                        Minhas Rotas
+                    </a>
+                </li>
+                <li>
+                    <a href="configuracoes-parceiros.html">
+                        Configurações
+                    </a>
+                </li>
+                <li>
+                    <a href="login-parceiros.html">
+                        Sair
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main id="mainContent">
+        <section class="content-header">
+            <h1>Criar Nova Rota</h1>
+        </section>
+
+        <form id="createRouteForm">
+            <!-- Informações Básicas -->
+            <div class="form-section">
+                <h2>Informações Básicas</h2>
+                <div class="form-group">
+                    <label for="nomeRota">Nome da Rota <span style="color: red;">*</span></label>
+                    <input type="text" id="nomeRota" name="nomeRota" placeholder="Ex: Rota Histórica de Olinda"
+                        required />
+                    <div class="error-message" id="error-nomeRota">
+                        O nome da rota é obrigatório.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="descricao">Descrição <span style="color: red;">*</span></label>
+                    <textarea id="descricao" name="descricao"
+                        placeholder="Descreva os principais pontos e experiências da rota..." required></textarea>
+                    <div class="error-message" id="error-descricao">
+                        A descrição é obrigatória.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="categoria">Categoria <span style="color: red;">*</span></label>
+                    <select id="categoria" name="categoria" required>
+                        <option value="">Selecione uma categoria</option>
+                        <option value="cultural">Cultural</option>
+                        <option value="gastronomica">Gastronômica</option>
+                        <option value="ecoturismo">Ecoturismo</option>
+                        <option value="historia">História</option>
+                        <option value="aventura">Aventura</option>
+                        <option value="lazer">Lazer</option>
+                        <option value="religiosa">Religiosa</option>
+                        <option value="outra">Outra</option>
+                    </select>
+                    <div class="error-message" id="error-categoria">
+                        A categoria é obrigatória.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Localização -->
+            <div class="form-section">
+                <h2>Localização</h2>
+                <div class="form-group">
+                    <label for="enderecoInicial">Endereço Inicial <span style="color: red;">*</span></label>
+                    <input type="text" id="enderecoInicial" name="enderecoInicial" placeholder="Ex: Rua do Amparo, 123"
+                        required />
+                    <div class="error-message" id="error-enderecoInicial">
+                        O endereço inicial é obrigatório.
+                    </div>
+                </div>
+                <div class="form-group grid">
+                    <div>
+                        <label for="cep">CEP <span style="color: red;">*</span></label>
+                        <input type="text" id="cep" name="cep" placeholder="00000-000" maxlength="9" required />
+                        <div class="error-message" id="error-cep">O CEP é obrigatório.</div>
+                    </div>
+                    <div>
+                        <label for="cidade">Cidade <span style="color: red;">*</span></label>
+                        <input type="text" id="cidade" name="cidade" placeholder="Ex: Olinda" required />
+                        <div class="error-message" id="error-cidade">
+                            A cidade é obrigatória.
+                        </div>
+                    </div>
+                    <div>
+                        <label for="estado">Estado <span style="color: red;">*</span></label>
+                        <select id="estado" name="estado" required>
+                            <option value="">Selecione o Estado</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                        <div class="error-message" id="error-estado">
+                            O estado é obrigatório.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group grid">
+                    <div>
+                        <label for="latitude">Latitude</label>
+                        <input type="text" id="latitude" name="latitude" placeholder="-8.000000" />
+                    </div>
+                    <div>
+                        <label for="longitude">Longitude</label>
+                        <input type="text" id="longitude" name="longitude" placeholder="-34.000000" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detalhes da Rota -->
+            <div class="form-section">
+                <h2>Detalhes da Rota</h2>
+                <div class="form-group grid">
+                    <div>
+                        <label for="duracao">Duração (horas) <span style="color: red;">*</span></label>
+                        <input type="number" id="duracao" name="duracao" min="0.5" step="0.5" placeholder="Ex: 3.5"
+                            required />
+                        <div class="error-message" id="error-duracao">
+                            A duração é obrigatória.
+                        </div>
+                    </div>
+                    <div>
+                        <label for="distancia">Distância (km) <span style="color: red;">*</span></label>
+                        <input type="number" id="distancia" name="distancia" min="0.1" step="0.1" placeholder="Ex: 5.2"
+                            required />
+                        <div class="error-message" id="error-distancia">
+                            A distância é obrigatória.
+                        </div>
+                    </div>
+                    <div>
+                        <label for="dificuldade">Nível de Dificuldade <span style="color: red;">*</span></label>
+                        <select id="dificuldade" name="dificuldade" required>
+                            <option value="">Selecione</option>
+                            <option value="facil">Fácil</option>
+                            <option value="medio">Médio</option>
+                            <option value="dificil">Difícil</option>
+                        </select>
+                        <div class="error-message" id="error-dificuldade">
+                            O nível de dificuldade é obrigatório.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preço e Disponibilidade -->
+            <div class="form-section">
+                <h2>Preço e Disponibilidade</h2>
+                <div class="form-group grid">
+                    <div>
+                        <label for="preco">Preço por pessoa (R$) <span style="color: red;">*</span></label>
+                        <input type="number" id="preco" name="preco" min="0" step="0.01" placeholder="Ex: 75.00"
+                            required />
+                        <div class="error-message" id="error-preco">
+                            O preço é obrigatório.
+                        </div>
+                    </div>
+                    <div>
+                        <label for="limiteParticipantes">Limite de Participantes <span
+                                style="color: red;">*</span></label>
+                        <input type="number" id="limiteParticipantes" name="limiteParticipantes" min="1"
+                            placeholder="Ex: 20" required />
+                        <div class="error-message" id="error-limiteParticipantes">
+                            O limite de participantes é obrigatório.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group grid">
+                    <div>
+                        <label for="dataInicio">Data de Início <span style="color: red;">*</span></label>
+                        <input type="date" id="dataInicio" name="dataInicio" required />
+                        <div class="error-message" id="error-dataInicio">
+                            A data de início é obrigatória.
+                        </div>
+                    </div>
+                    <div>
+                        <label for="dataTermino">Data de Término <span style="color: red;">*</span></label>
+                        <input type="date" id="dataTermino" name="dataTermino" required />
+                        <div class="error-message" id="error-dataTermino">
+                            A data de término é obrigatória.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mapa Interativo -->
+            <div class="form-section">
+                <h2>Mapa Interativo</h2>
+                <div class="map-placeholder">
+                    Espaço para integração de mapa (Ex: Google Maps, OpenStreetMap)
+                </div>
+            </div>
+
+            <!-- Imagens -->
+            <div class="form-section">
+                <h2>Imagens</h2>
+                <div class="form-group">
+                    <label for="imagemPrincipal">Imagem Principal <span style="color: red;">*</span></label>
+                    <input type="file" id="imagemPrincipal" name="imagemPrincipal" accept="image/*" required />
+                    <div class="error-message" id="error-imagemPrincipal">
+                        A imagem principal é obrigatória.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="galeriaFotos">Galeria de Fotos</label>
+                    <input type="file" id="galeriaFotos" name="galeriaFotos" accept="image/*" multiple />
+                </div>
+            </div>
+
+            <!-- Atrações -->
+            <div class="form-section">
+                <h2>Atrações</h2>
+                <div id="attractionsContainer">
+                    <!-- Atrações serão adicionadas aqui via JS -->
+                </div>
+                <button type="button" id="addAttractionBtn" class="add-attraction-btn">
+                    + Adicionar Atração
+                </button>
+            </div>
+
+            <!-- Serviços Inclusos -->
+            <div class="form-section">
+                <h2>Serviços Inclusos</h2>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" name="servicos" value="transporte" />
+                        Transporte
+                    </label>
+                    <label>
+                        <input type="checkbox" name="servicos" value="hospedagem" />
+                        Hospedagem
+                    </label>
+                    <label>
+                        <input type="checkbox" name="servicos" value="alimentacao" />
+                        Alimentação
+                    </label>
+                    <label>
+                        <input type="checkbox" name="servicos" value="guia" />
+                        Guia
+                    </label>
+                    <label>
+                        <input type="checkbox" name="servicos" value="seguro" />
+                        Seguro
+                    </label>
+                </div>
+            </div>
+
+            <!-- Termos e Condições -->
+            <div class="form-section">
+                <h2>Termos e Condições</h2>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="aceiteTermos" name="aceiteTermos" required />
+                        Eu li e aceito os Termos e Condições para publicação de rotas.
+                    </label>
+                    <div class="error-message" id="error-aceiteTermos">
+                        Você deve aceitar os termos e condições.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="saveDraftBtn">
+                    Salvar Rascunho
+                </button>
+                <button type="button" class="btn btn-danger" id="cancelBtn">
+                    Cancelar
+                </button>
+                <button type="submit" class="btn btn-primary">Publicar Rota</button>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const sidebar = document.getElementById("sidebar");
+            const hamburgerMenu = document.getElementById("hamburgerMenu");
+            const mainContent = document.getElementById("mainContent");
+            const createRouteForm = document.getElementById("createRouteForm");
+            const attractionsContainer = document.getElementById("attractionsContainer");
+            const addAttractionBtn = document.getElementById("addAttractionBtn");
+            const saveDraftBtn = document.getElementById("saveDraftBtn");
+            const cancelBtn = document.getElementById("cancelBtn");
+
+            // --- Sidebar Toggle ---
+            hamburgerMenu.addEventListener("click", () => {
+                sidebar.classList.toggle("visible");
+                mainContent.classList.toggle("sidebar-hidden");
+            });
+
+            // --- Input Masks ---
+            function applyCepMask(input) {
+                input.addEventListener("input", (e) => {
+                    let value = e.target.value.replace(/\D/g, "");
+                    if (value.length > 5) {
+                        value = value.substring(0, 5) + "-" + value.substring(5, 8);
+                    }
+                    e.target.value = value;
+                });
+            }
+            applyCepMask(document.getElementById("cep"));
+
+            // --- Dynamic Attractions ---
+            let attractionCount = 0;
+
+            function addAttractionField(name = "", description = "") {
+                attractionCount++;
+                const attractionDiv = document.createElement("div");
+                attractionDiv.classList.add("attraction-item");
+                attractionDiv.innerHTML = `
+            <div class="form-group">
+              <label for="atracaoNome${attractionCount}">Nome da Atração</label>
+              <input type="text" id="atracaoNome${attractionCount}" name="atracaoNome${attractionCount}" value="${name}" placeholder="Ex: Praça do Carmo" />
+            </div>
+            <div class="form-group">
+              <label for="atracaoDescricao${attractionCount}">Descrição da Atração</label>
+              <textarea id="atracaoDescricao${attractionCount}" name="atracaoDescricao${attractionCount}" placeholder="Breve descrição da atração">${description}</textarea>
+            </div>
+            <button type="button" class="remove-btn">Remover</button>
+          `;
+                attractionsContainer.appendChild(attractionDiv);
+
+                attractionDiv
+                    .querySelector(".remove-btn")
+                    .addEventListener("click", () => {
+                        attractionDiv.remove();
+                        saveDraft(); // Salva o rascunho após remover
+                    });
+            }
+
+            addAttractionBtn.addEventListener("click", () => addAttractionField());
+
+            // --- Form Validation ---
+            function validateField(input) {
+                const errorElement = document.getElementById(`error-${input.id}`);
+                if (input.hasAttribute("required") && !input.value.trim()) {
+                    input.style.borderColor = "#dc3545";
+                    if (errorElement) errorElement.style.display = "block";
+                    return false;
+                } else if (input.type === "file" && input.hasAttribute("required") && input.files.length === 0) {
+                    input.style.borderColor = "#dc3545";
+                    if (errorElement) errorElement.style.display = "block";
+                    return false;
+                } else if (input.type === "checkbox" && input.hasAttribute("required") && !input.checked) {
+                    input.style.borderColor = "#dc3545";
+                    if (errorElement) errorElement.style.display = "block";
+                    return false;
+                }
+                input.style.borderColor = "#ccc";
+                if (errorElement) errorElement.style.display = "none";
+                return true;
+            }
+
+            createRouteForm.querySelectorAll("[required]").forEach((input) => {
+                input.addEventListener("blur", () => validateField(input));
+                input.addEventListener("input", () => validateField(input)); // Valida em tempo real
+            });
+
+            // --- Save/Load Draft (LocalStorage) ---
+            const DRAFT_KEY = "createRouteDraft";
+
+            function saveDraft() {
+                const formData = new FormData(createRouteForm);
+                const draft = {};
+                for (let [key, value] of formData.entries()) {
+                    if (key.startsWith("atracaoNome") || key.startsWith("atracaoDescricao")) {
+                        // Handle dynamic attractions
+                        const index = key.match(/\d+/)[0];
+                        if (!draft.attractions) draft.attractions = [];
+                        if (!draft.attractions[index - 1]) draft.attractions[index - 1] = {};
+                        if (key.includes("Nome")) draft.attractions[index - 1].name = value;
+                        if (key.includes("Descricao")) draft.attractions[index - 1].description = value;
+                    } else if (key === "servicos") {
+                        if (!draft.servicos) draft.servicos = [];
+                        draft.servicos.push(value);
+                    } else if (key === "imagemPrincipal" || key === "galeriaFotos") {
+                        // File inputs cannot be saved directly to localStorage
+                        // For a real app, you'd handle file uploads separately or store file names/paths
+                        // For draft, we'll just ignore them or store a placeholder if needed
+                    } else {
+                        draft[key] = value;
+                    }
+                }
+                // Handle checkbox for terms
+                draft.aceiteTermos = document.getElementById("aceiteTermos").checked;
+
+                localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+                console.log("Rascunho salvo!", draft);
+            }
+
+            function loadDraft() {
+                const draft = JSON.parse(localStorage.getItem(DRAFT_KEY));
+                if (draft) {
+                    console.log("Rascunho carregado!", draft);
+                    for (const key in draft) {
+                        if (key === "attractions") {
+                            draft.attractions.forEach((attr) => {
+                                if (attr.name || attr.description) {
+                                    addAttractionField(attr.name, attr.description);
+                                }
+                            });
+                        } else if (key === "servicos") {
+                            draft.servicos.forEach((service) => {
+                                const checkbox = createRouteForm.querySelector(
+                                    `input[name="servicos"][value="${service}"]`
+                                );
+                                if (checkbox) checkbox.checked = true;
+                            });
+                        } else if (key === "aceiteTermos") {
+                            document.getElementById("aceiteTermos").checked = draft[key];
+                        } else {
+                            const input = createRouteForm.querySelector(`[name="${key}"]`);
+                            if (input) {
+                                input.value = draft[key];
+                            }
+                        }
+                    }
+                } else {
+                    // If no draft, add one empty attraction field by default
+                    addAttractionField();
+                }
+            }
+
+            // Save draft periodically and on input change
+            createRouteForm.addEventListener("input", saveDraft);
+            saveDraftBtn.addEventListener("click", saveDraft);
+
+            // Load draft on page load
+            loadDraft();
+
+            // --- Form Submission ---
+            createRouteForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+                let formIsValid = true;
+
+                createRouteForm.querySelectorAll("[required]").forEach((input) => {
+                    if (!validateField(input)) {
+                        formIsValid = false;
+                    }
+                });
+
+                if (formIsValid) {
+                    alert("Formulário validado! Publicando rota...");
+                    // Aqui você enviaria os dados para o servidor
+                    // Ex: fetch('/api/rotas', { method: 'POST', body: new FormData(createRouteForm) })
+                    localStorage.removeItem(DRAFT_KEY); // Limpa o rascunho após sucesso
+                    // Redirecionar para a página de sucesso ou lista de rotas
+                    window.location.href = "minhas-rotas.html";
+                } else {
+                    alert("Por favor, preencha todos os campos obrigatórios.");
+                }
+            });
+
+            // --- Cancel Button ---
+            cancelBtn.addEventListener("click", () => {
+                if (confirm("Deseja realmente cancelar? Todas as alterações não salvas serão perdidas.")) {
+                    localStorage.removeItem(DRAFT_KEY); // Limpa o rascunho
+                    window.location.href = "minhas-rotas.html"; // Redireciona
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

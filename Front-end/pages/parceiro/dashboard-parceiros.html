@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard do Parceiro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="/style/parceiro/dashboard-parceiros.css"/>
+</head>
+
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <!-- INSERIR LOGO AQUI -->
+            <img src="/images/logo.png" alt="Logo da Empresa" />
+        </div>
+        <nav>
+            <ul>
+                <li class="active">
+                    <a href="#" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="minhas-rotas.html" data-section="minhas-rotas">
+                        <i class="fas fa-route"></i>
+                        <span>Minhas Rotas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="configuracoes-parceiros.html" data-section="configuracoes-parceiros">
+                        <i class="fas fa-cog"></i>
+                        <span>Configurações</span>
+                        
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-section="sair">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="main-content" id="mainContent">
+        <header class="dashboard-header">
+            <div class="left-section">
+                <button class="icon-button hamburger-menu" id="hamburgerBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo-placeholder">Dashboard</div>
+            </div>
+            <div class="right-section">
+                <span class="partner-name" id="partnerNameDisplay">Nome da Parceria</span>
+                <button class="icon-button">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <button class="icon-button">
+                    <i class="fas fa-user-circle"></i>
+                </button>
+            </div>
+        </header>
+
+        <section class="welcome-section">
+            <h1 id="welcomeMessage">Bem-vindo, Parceiro!</h1>
+            <p>Aqui você pode gerenciar suas rotas e acompanhar seu desempenho.</p>
+        </section>
+
+        <section class="kpi-cards">
+            <div class="kpi-card">
+                <h3>Total de Rotas</h3>
+                <p class="value">12</p>
+            </div>
+            <div class="kpi-card">
+                <h3>Rotas Ativas</h3>
+                <p class="value">8</p>
+            </div>
+            <div class="kpi-card">
+                <h3>Avaliação Média</h3>
+                <p class="value">4.7 <i class="fas fa-star"></i></p>
+            </div>
+            <div class="kpi-card">
+                <h3>Visualizações este mês</h3>
+                <p class="value">1.5K</p>
+            </div>
+        </section>
+
+        <section class="chart-section">
+            <h2>Visualizações (Últimos 7 Dias)</h2>
+            <div class="chart-container">
+                <div class="chart-bar" style="height: 60%"><span>120</span></div>
+                <div class="chart-bar" style="height: 80%"><span>160</span></div>
+                <div class="chart-bar" style="height: 40%"><span>80</span></div>
+                <div class="chart-bar" style="height: 90%"><span>180</span></div>
+                <div class="chart-bar" style="height: 70%"><span>140</span></div>
+                <div class="chart-bar" style="height: 50%"><span>100</span></div>
+                <div class="chart-bar" style="height: 75%"><span>150</span></div>
+            </div>
+            <div class="chart-labels">
+                <span>Dia 1</span><span>Dia 2</span><span>Dia 3</span><span>Dia 4</span><span>Dia 5</span><span>Dia
+                    6</span><span>Dia 7</span>
+            </div>
+        </section>
+
+        <section class="routes-section">
+            <div class="header-actions">
+                <h2>Rotas Recentes</h2>
+                <a href="#" class="btn-primary">
+                    <i class="fas fa-plus"></i> Criar Nova Rota
+                </a>
+            </div>
+            <table class="routes-table">
+                <thead>
+                    <tr>
+                        <th>Nome da Rota</th>
+                        <th>Status</th>
+                        <th>Avaliação</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Nome da Rota">Centro Histórico</td>
+                        <td data-label="Status" class="status-active">Ativa</td>
+                        <td data-label="Avaliação">4.9 <i class="fas fa-star"></i></td>
+                        <td data-label="Ações" class="actions">
+                            <button title="Editar"><i class="fas fa-edit"></i></button>
+                            <button title="Excluir" class="delete">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="Nome da Rota">Praias do Sul</td>
+                        <td data-label="Status" class="status-active">Ativa</td>
+                        <td data-label="Avaliação">4.5 <i class="fas fa-star"></i></td>
+                        <td data-label="Ações" class="actions">
+                            <button title="Editar"><i class="fas fa-edit"></i></button>
+                            <button title="Excluir" class="delete">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="Nome da Rota">Trilhas da Mata Atlântica</td>
+                        <td data-label="Status" class="status-pending">Pendente</td>
+                        <td data-label="Avaliação">N/A</td>
+                        <td data-label="Ações" class="actions">
+                            <button title="Editar"><i class="fas fa-edit"></i></button>
+                            <button title="Excluir" class="delete">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="Nome da Rota">Gastronomia Local</td>
+                        <td data-label="Status" class="status-active">Ativa</td>
+                        <td data-label="Avaliação">4.8 <i class="fas fa-star"></i></td>
+                        <td data-label="Ações" class="actions">
+                            <button title="Editar"><i class="fas fa-edit"></i></button>
+                            <button title="Excluir" class="delete">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const partnerName =
+                localStorage.getItem("partnerName") || "Nome da Parceria";
+            document.getElementById("partnerNameDisplay").textContent =
+                partnerName;
+            document.getElementById(
+                "welcomeMessage"
+            ).textContent = `Bem-vindo, ${partnerName}!`;
+
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("mainContent");
+            const hamburgerBtn = document.getElementById("hamburgerBtn");
+            const sidebarLinks = document.querySelectorAll(".sidebar nav ul li a");
+
+            // Toggle sidebar on mobile
+            hamburgerBtn.addEventListener("click", () => {
+                sidebar.classList.toggle("active");
+            });
+
+            // Handle sidebar link clicks (for active state and potential navigation)
+            sidebarLinks.forEach((link) => {
+                link.addEventListener("click", (e) => {
+                if (link.getAttribute("href") === "#") {
+                        e.preventDefault();
+                } else {
+                     return; // deixa o navegador seguir o href normalmente
+                }
+
+                    sidebarLinks.forEach((item) =>
+                        item.parentElement.classList.remove("active")
+                    );
+                    link.parentElement.classList.add("active");
+
+                    // In a real application, you would load content dynamically here
+                    const section = link.dataset.section;
+                    console.log(`Navigating to: ${section}`);
+
+                    // Close sidebar on mobile after clicking a link
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove("active");
+                    }
+                });
+            });
+
+            // Adjust sidebar visibility based on screen size
+            function adjustSidebarForScreenSize() {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.add("hidden");
+                    mainContent.classList.add("sidebar-hidden");
+                } else {
+                    sidebar.classList.remove("hidden");
+                    mainContent.classList.remove("sidebar-hidden");
+                    sidebar.classList.remove("active"); // Ensure mobile menu is closed
+                }
+            }
+
+            // Initial adjustment
+            adjustSidebarForScreenSize();
+
+            // Listen for resize events
+            window.addEventListener("resize", adjustSidebarForScreenSize);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - IN ROTA</title>
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="/style/usuario/home.css">
+
+</head>
+<body>
+    <!-- Barra Superior -->
+    <div class="topo">
+        <div class="logo-container">
+            <img src="/images/logo.png" class="logo" alt="IN ROTA Logo">
+        </div>
+        
+        <div class="user-controls">
+            <div class="perfil" onclick="window.location.href='perfil_usuario.html'">
+                <img src="/images/fotoUsuario.png" alt="Foto do usuário" class="user-avatar">
+                <span class="user-name">Usuário</span>
+            </div>
+            
+            <div class="menu-toggle" id="menuToggle">
+                <div class="linha"></div>
+                <div class="linha"></div>
+                <div class="linha"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra Lateral (Menu) -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="user-info">
+                <img src="/images/fotoUsuario.png" alt="Foto do usuário" class="sidebar-avatar">
+                <div class="user-details">
+                    <h4>Usuário</h4>
+                    <p>usuario@email.com</p>
+                </div>
+            </div>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="home.html" class="menu-item active">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            
+            <a href="perfil.html" class="menu-item">
+                <i class="fas fa-user"></i>
+                <span>Meu Perfil</span>
+            </a>
+            
+            <a href="preferencias.html" class="menu-item">
+                <i class="fas fa-heart"></i>
+                <span>Minhas Preferências</span>
+            </a>
+            
+            <a href="agenda_cultural.html" class="menu-item">
+                <i class="fas fa-bookmark"></i>
+                <span>Agenda</span>
+            </a>
+            
+            <a href="historico.html" class="menu-item">
+                <i class="fas fa-history"></i>
+                <span>Histórico</span>
+            </a>
+            
+            <a href="configuracoes.html" class="menu-item">
+                <i class="fas fa-cog"></i>
+                <span>Configurações</span>
+            </a>
+            
+            <div class="menu-divider"></div>
+            
+            <a href="ajuda.html" class="menu-item">
+                <i class="fas fa-question-circle"></i>
+                <span>Ajuda e Suporte</span>
+            </a>
+            
+            <a href="#" class="menu-item logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Sair</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <p>IN ROTA v1.0</p>
+        </div>
+    </div>
+
+    <!-- Overlay para fechar menu -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+        <!-- Saudação e Informações -->
+        <div class="welcome-section slide-in-down">
+            <div class="welcome-content">
+                <h1 class="welcome-title">
+                    Olá, <span class="user-name-highlight">Usuário!</span>
+                </h1>
+                <p class="welcome-subtitle">
+                    Explore rotas incríveis e descubra novos destinos com o IN ROTA.
+                    Encontre lugares inesquecíveis baseados nas suas preferências.
+                </p>
+                
+                <div class="welcome-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-route"></i>
+                        <div>
+                            <span class="stat-number">24</span>
+                            <span class="stat-label">Rotas visitadas</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">Favoritos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="weather-card">
+                <div class="weather-header">
+                    <i class="fas fa-sun"></i>
+                    <div>
+                        <span class="weather-temp">28°C</span>
+                        <span class="weather-desc">Ensolarado</span>
+                    </div>
+                </div>
+                <div class="weather-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Recife, PE</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barra de Busca -->
+        <div class="search-container fade-in-up delay-1">
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Pesquisar destinos, rotas ou pontos turísticos...">
+                <button class="filter-btn">
+                    <i class="fas fa-filter"></i>
+                    <span class="filter-text">Filtrar</span>
+                </button>
+            </div>
+            
+            <div class="search-tags">
+                <div class="search-tag">
+                    <i class="fas fa-utensils"></i>
+                    Gastronomia
+                </div>
+                <div class="search-tag">
+                    <i class="fas fa-landmark"></i>
+                    Cultural
+                </div>
+                <div class="search-tag">
+                    <i class="fas fa-umbrella-beach"></i>
+                    Lazer
+                </div>
+                <div class="search-tag">
+                    <i class="fas fa-music"></i>
+                    Música
+                </div>
+                <div class="search-tag">
+                    <i class="fas fa-tree"></i>
+                    Natureza
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção Ações Rápidas -->
+        <div class="quick-actions fade-in-up delay-1">
+            <a href="rotas_salvas.html" class="quick-action">
+                <div class="quick-action-icon">
+                    <i class="fas fa-bookmark"></i>
+                </div>
+                <h4 class="quick-action-title">Rotas Salvas</h4>
+                <p class="quick-action-desc">Acesse suas rotas favoritas</p>
+            </a>
+            
+            <a href="preferencias.html" class="quick-action">
+                <div class="quick-action-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h4 class="quick-action-title">Preferências</h4>
+                <p class="quick-action-desc">Personalize suas recomendações</p>
+            </a>
+            
+            <a href="historico.html" class="quick-action">
+                <div class="quick-action-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h4 class="quick-action-title">Histórico</h4>
+                <p class="quick-action-desc">Veja onde esteve</p>
+            </a>
+            
+            <a href="configuracoes.html" class="quick-action">
+                <div class="quick-action-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <h4 class="quick-action-title">Configurações</h4>
+                <p class="quick-action-desc">Ajuste sua experiência</p>
+            </a>
+        </div>
+
+        <!-- Seção Rota Santo Amaro -->
+        <div class="route-section fade-in-up delay-2">
+            <div class="route-header">
+                <div class="route-title">
+                    <div class="route-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <div class="route-text">
+                        <h2>SANTO AMARO</h2>
+                        <p>Recife - Pernambuco</p>
+                    </div>
+                </div>
+                <div class="route-code">[RE001]</div>
+            </div>
+
+            <div class="route-points">
+                <div class="route-point">
+                    <div class="point-icon">
+                        <i class="fas fa-fort-awesome"></i>
+                    </div>
+                    <h4 class="point-title">Museu Militar do Forte do Brum</h4>
+                    <p class="point-description">Um importante forte colonial português localizado no Recife.</p>
+                    <span class="point-tag">Cultural</span>
+                </div>
+                
+                <div class="route-point">
+                    <div class="point-icon">
+                        <i class="fas fa-ship"></i>
+                    </div>
+                    <h4 class="point-title">Terminal Marítimo de Passageiros Nelcy</h4>
+                    <p class="point-description">Principal terminal marítimo de passageiros da cidade.</p>
+                    <span class="point-tag">Transporte</span>
+                </div>
+                
+                <div class="route-point">
+                    <div class="point-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h4 class="point-title">Moinho Recife - REVITALIS</h4>
+                    <p class="point-description">Projeto de revitalização de um antigo moinho.</p>
+                    <span class="point-tag">Arquitetura</span>
+                </div>
+                
+                <div class="route-point">
+                    <div class="point-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h4 class="point-title">Centro Cultural Gais do Sertão</h4>
+                    <p class="point-description">Espaço cultural dedicado à música e cultura do sertão.</p>
+                    <span class="point-tag">Música</span>
+                </div>
+                
+                <div class="route-point">
+                    <div class="point-icon">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <h4 class="point-title">Parque de Francisco Brennand</h4>
+                    <p class="point-description">Espaço verde com obras do famoso artista pernambucano.</p>
+                    <span class="point-tag">Natureza</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção Rotas de Destaques -->
+        <div class="featured-section fade-in-up delay-2">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-star"></i>
+                    Rotas de Destaques
+                </h2>
+                <button class="view-all">
+                    <i class="fas fa-eye"></i>
+                    Ver todas
+                </button>
+            </div>
+            
+            <div class="featured-items">
+                <div class="featured-item">
+                    <div class="featured-image ricardo">
+                        <div class="featured-badge">Cultural</div>
+                    </div>
+                    <div class="featured-content">
+                        <h3 class="featured-title">
+                            <i class="fas fa-landmark"></i>
+                            Instituto Ricardo Brennand
+                        </h3>
+                        <p class="featured-description">
+                            O Instituto Ricardo Brennand é uma instituição cultural sem fins lucrativos, conhecido por seu acervo de arte e história. Foi eleito o melhor museu da América do Sul pelo TripAdvisor em 2015.
+                        </p>
+                        <div class="featured-stats">
+                            <div class="featured-stat">
+                                <i class="fas fa-users"></i>
+                                <span>4.8 (2.3k)</span>
+                            </div>
+                            <div class="featured-stat">
+                                <i class="fas fa-clock"></i>
+                                <span>2-3 horas</span>
+                            </div>
+                            <div class="featured-stat">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Várzea</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="featured-item">
+                    <div class="featured-image frevo">
+                        <div class="featured-badge">Cultura</div>
+                    </div>
+                    <div class="featured-content">
+                        <h3 class="featured-title">
+                            <i class="fas fa-music"></i>
+                            Paço do Frevo
+                        </h3>
+                        <p class="featured-description">
+                            O Paço do Frevo é um espaço cultural localizado no Recife, dedicado à preservação, pesquisa e promoção do frevo por meio de atividades de dança, música, lazer e formação.
+                        </p>
+                        <div class="featured-stats">
+                            <div class="featured-stat">
+                                <i class="fas fa-users"></i>
+                                <span>4.6 (1.8k)</span>
+                            </div>
+                            <div class="featured-stat">
+                                <i class="fas fa-clock"></i>
+                                <span>1-2 horas</span>
+                            </div>
+                            <div class="featured-stat">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Recife Antigo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="home-footer">
+            <p>IN ROTA © 2024 - Explore o mundo de novas maneiras</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript Personalizado -->
+    <script>
+        // Elementos DOM
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarClose = document.getElementById('sidebarClose');
+        const overlay = document.getElementById('overlay');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const searchInput = document.querySelector('.search-input');
+        const filterBtn = document.querySelector('.filter-btn');
+        const searchTags = document.querySelectorAll('.search-tag');
+        const routePoints = document.querySelectorAll('.route-point');
+        const featuredItems = document.querySelectorAll('.featured-item');
+        const viewAllBtn = document.querySelector('.view-all');
+        const quickActions = document.querySelectorAll('.quick-action');
+
+        // Dados do usuário
+        let userData = {
+            name: "Usuário",
+            email: "usuario@email.com",
+            avatar: "/Front-end/images/fotoUsuario.png",
+            visitedRoutes: 24,
+            favoriteRoutes: 8
+        };
+
+        // Inicializar
+        function initialize() {
+            // Event Listeners para o menu lateral
+            menuToggle.addEventListener('click', toggleSidebar);
+            sidebarClose.addEventListener('click', toggleSidebar);
+            overlay.addEventListener('click', toggleSidebar);
+            
+            // Event Listener para logout
+            logoutBtn.addEventListener('click', handleLogout);
+            
+            // Event Listener para busca
+            searchInput.addEventListener('focus', () => {
+                document.querySelector('.search-box').classList.add('focused');
+            });
+            
+            searchInput.addEventListener('blur', () => {
+                document.querySelector('.search-box').classList.remove('focused');
+            });
+            
+            // Event Listener para filtro
+            filterBtn.addEventListener('click', () => {
+                showNotification('Abrindo filtros de busca...', 'info');
+            });
+            
+            // Event Listeners para tags de busca
+            searchTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const tagText = this.textContent.trim();
+                    searchInput.value = tagText;
+                    searchInput.focus();
+                    showNotification(`Buscando por: ${tagText}`, 'info');
+                });
+            });
+            
+            // Event Listeners para pontos da rota
+            routePoints.forEach(point => {
+                point.addEventListener('click', function() {
+                    const pointTitle = this.querySelector('.point-title').textContent;
+                    showNotification(`Abrindo detalhes: ${pointTitle}`, 'info');
+                });
+            });
+            
+            // Event Listeners para itens em destaque
+            featuredItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const itemTitle = this.querySelector('.featured-title').textContent;
+                    showNotification(`Abrindo rota: ${itemTitle}`, 'info');
+                });
+            });
+            
+            // Event Listener para ver todas as rotas
+            viewAllBtn.addEventListener('click', () => {
+                showNotification('Carregando todas as rotas...', 'info');
+            });
+            
+            // Event Listeners para ações rápidas
+            quickActions.forEach(action => {
+                action.addEventListener('click', function(e) {
+                    const actionTitle = this.querySelector('.quick-action-title').textContent;
+                    showNotification(`Abrindo: ${actionTitle}`, 'info');
+                });
+            });
+            
+            // Animar elementos ao rolar
+            animateOnScroll();
+            
+            // Inicializar efeitos de hover
+            initHoverEffects();
+        }
+
+        // Alternar barra lateral
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+            
+            if (sidebar.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Processar logout
+        function handleLogout() {
+            showNotification('Saindo da conta...', 'info');
+            
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1500);
+        }
+
+        // Animar elementos ao rolar
+        function animateOnScroll() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observar elementos para animação
+            document.querySelectorAll('.fade-in-up').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        // Inicializar efeitos de hover
+        function initHoverEffects() {
+            // Efeito de pulso para o ícone do usuário
+            const userAvatar = document.querySelector('.user-avatar');
+            userAvatar.addEventListener('mouseenter', () => {
+                userAvatar.classList.add('pulse');
+            });
+            
+            userAvatar.addEventListener('mouseleave', () => {
+                userAvatar.classList.remove('pulse');
+            });
+        }
+
+        // Mostrar notificação
+        function showNotification(message, type = 'info') {
+            // Criar elemento de notificação
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            
+            // Estilos base
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 25px;
+                border-radius: 12px;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+                animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+                font-weight: 500;
+                color: white;
+                max-width: 300px;
+                backdrop-filter: blur(10px);
+                background: rgba(0, 0, 0, 0.8);
+                border-left: 4px solid;
+            `;
+            
+            // Cores por tipo
+            switch(type) {
+                case 'success':
+                    notification.style.borderLeftColor = '#2ecc71';
+                    break;
+                case 'error':
+                    notification.style.borderLeftColor = '#e74c3c';
+                    break;
+                case 'info':
+                    notification.style.borderLeftColor = '#3498db';
+                    break;
+                default:
+                    notification.style.borderLeftColor = '#3498db';
+            }
+            
+            document.body.appendChild(notification);
+            
+            // Remover após 3 segundos
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 3000);
+        }
+
+        // Adicionar estilos CSS para animações
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+            
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+                100% { transform: scale(1); }
+            }
+            
+            .pulse {
+                animation: pulse 0.5s ease;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Inicializar quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', initialize);
+    </script>
+</body>
+</html>

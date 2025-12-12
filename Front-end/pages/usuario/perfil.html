@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meu Perfil - IN ROTA</title>
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="/style/usuario/perfil.css" />
+</head>
+<body>
+    <!-- Barra Superior -->
+    <div class="topo">
+        <div class="logo-container">
+            <img src="/images/logo.png" class="logo" alt="IN ROTA Logo">
+        </div>
+        
+        <div class="user-controls">
+            <div class="perfil">
+                <img src="/images/fotoUsuario.png" alt="Foto do usuário" class="user-avatar">
+                <span class="user-name">Usuário</span>
+            </div>
+            
+            <div class="menu-toggle" id="menuToggle">
+                <div class="linha"></div>
+                <div class="linha"></div>
+                <div class="linha"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra Lateral (Menu) -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="user-info">
+                <img src="/images/fotoUsuario.png" alt="Foto do usuário" class="sidebar-avatar">
+                <div class="user-details">
+                    <h4>Usuário</h4>
+                    <p>usuario@email.com</p>
+                </div>
+            </div>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="perfil_usuario.html" class="menu-item active">
+                <i class="fas fa-user"></i>
+                <span>Meu Perfil</span>
+            </a>
+            
+            <a href="preferencias.html" class="menu-item">
+                <i class="fas fa-heart"></i>
+                <span>Minhas Preferências</span>
+            </a>
+            
+            <a href="rotas_salvas.html" class="menu-item">
+                <i class="fas fa-bookmark"></i>
+                <span>Rotas Salvas</span>
+            </a>
+            
+            <a href="historico.html" class="menu-item">
+                <i class="fas fa-history"></i>
+                <span>Histórico</span>
+            </a>
+            
+            <a href="configuracoes.html" class="menu-item">
+                <i class="fas fa-cog"></i>
+                <span>Configurações</span>
+            </a>
+            
+            <div class="menu-divider"></div>
+            
+            <a href="ajuda.html" class="menu-item">
+                <i class="fas fa-question-circle"></i>
+                <span>Ajuda e Suporte</span>
+            </a>
+            
+            <a href="#" class="menu-item logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Sair</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <p>IN ROTA v1.0</p>
+        </div>
+    </div>
+
+    <!-- Overlay para fechar menu -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Conteúdo Principal -->
+    <div class="container main-container">
+        <!-- Cabeçalho do Perfil -->
+        <div class="profile-header">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="page-title">Meu Perfil</h1>
+                    <p class="page-subtitle">Gerencie suas informações pessoais e preferências</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <div class="member-since">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Membro desde: Janeiro 2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cartão do Perfil -->
+        <div class="profile-card">
+            <div class="profile-card-content">
+                <div class="avatar-section">
+                    <div class="avatar-container">
+                        <img src="https://ui-avatars.com/api/?name=Usuario+Rota&background=0d4f0d&color=ffffff&size=150"
+                            alt="Foto de Perfil" 
+                            class="avatar-img"
+                            id="profileAvatar">
+                        <div class="avatar-overlay">
+                            <button class="edit-avatar-btn" id="editAvatarBtn">
+                                <i class="fas fa-camera"></i>
+                                Alterar foto
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-info">
+                        <h2 class="profile-name" id="profileName">Usuário da Rota</h2>
+                        <p class="profile-email" id="profileEmail">usuario@email.com</p>
+                        
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">24</span>
+                                <span class="stat-label">Rotas visitadas</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">12</span>
+                                <span class="stat-label">Rotas salvas</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">5</span>
+                                <span class="stat-label">Amigos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-badges">
+                    <div class="badge premium-badge">
+                        <i class="fas fa-crown"></i>
+                        <span>Premium</span>
+                    </div>
+                    <div class="badge explorer-badge">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>Explorador</span>
+                    </div>
+                    <div class="badge verified-badge">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Verificado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção de Interesses -->
+        <div class="interests-section">
+            <div class="section-header">
+                <div class="section-title-container">
+                    <h3 class="section-title">
+                        <i class="fas fa-heart"></i>
+                        Meus Interesses
+                    </h3>
+                    <p class="section-subtitle">Esses interesses ajudam a personalizar suas recomendações de rotas</p>
+                </div>
+                <a href="preferencias.html" class="edit-interests-btn" id="editInterestsBtn">
+                    <i class="fas fa-edit"></i>
+                    Editar Interesses
+                </a>
+            </div>
+            
+            <div class="interests-container" id="interestsContainer">
+                <!-- Interesses serão carregados dinamicamente -->
+            </div>
+            
+            <div class="interests-empty" id="interestsEmpty">
+                <i class="fas fa-heart-broken"></i>
+                <p>Você ainda não selecionou interesses</p>
+                <a href="preferencias.html" class="btn-add-interests">
+                    <i class="fas fa-plus"></i>
+                    Adicionar interesses
+                </a>
+            </div>
+        </div>
+
+        <!-- Menu de Opções -->
+        <div class="options-section">
+            <div class="section-header">
+                <h3 class="section-title">
+                    <i class="fas fa-cog"></i>
+                    Configurações da Conta
+                </h3>
+            </div>
+            
+            <div class="options-list">
+                <!-- Dados Pessoais -->
+                <div class="option-item" id="personalDataBtn">
+                    <div class="option-content">
+                        <div class="option-icon">
+                            <i class="fas fa-user-edit"></i>
+                        </div>
+                        <div class="option-info">
+                            <h5 class="option-title">Dados Pessoais</h5>
+                            <p class="option-description">Atualize seu nome, e-mail e informações pessoais</p>
+                        </div>
+                    </div>
+                    <div class="option-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                
+                <!-- Segurança -->
+                <div class="option-item" id="securityBtn">
+                    <div class="option-content">
+                        <div class="option-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="option-info">
+                            <h5 class="option-title">Segurança e Senha</h5>
+                            <p class="option-description">Altere sua senha e gerencie a segurança da conta</p>
+                        </div>
+                    </div>
+                    <div class="option-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                
+                <!-- Histórico de Rotas -->
+                <div class="option-item" id="historyBtn">
+                    <div class="option-content">
+                        <div class="option-icon">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <div class="option-info">
+                            <h5 class="option-title">Histórico de Rotas</h5>
+                            <p class="option-description">Veja todas as rotas que você visitou e explorou</p>
+                        </div>
+                    </div>
+                    <div class="option-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                
+                <!-- Notificações -->
+                <div class="option-item" id="notificationsBtn">
+                    <div class="option-content">
+                        <div class="option-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="option-info">
+                            <h5 class="option-title">Notificações</h5>
+                            <p class="option-description">Gerencie como e quando você recebe notificações</p>
+                        </div>
+                    </div>
+                    <div class="option-switch">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Privacidade -->
+                <div class="option-item" id="privacyBtn">
+                    <div class="option-content">
+                        <div class="option-icon">
+                            <i class="fas fa-user-secret"></i>
+                        </div>
+                        <div class="option-info">
+                            <h5 class="option-title">Privacidade</h5>
+                            <p class="option-description">Controle quem vê suas informações e atividades</p>
+                        </div>
+                    </div>
+                    <div class="option-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                
+                <!-- Sobre o App -->
+                <div class="option-item" id="aboutBtn">
+                    <div class="option-content">
+                        <div class="option-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="option-info">
+                            <h5 class="option-title">Sobre o IN ROTA</h5>
+                            <p class="option-description">Versão, termos de uso e política de privacidade</p>
+                        </div>
+                    </div>
+                    <div class="option-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botão de Sair -->
+        <div class="logout-section">
+            <button class="logout-btn" id="logoutProfileBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                Sair da Conta
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Logout -->
+    <div class="modal" id="logoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-sign-out-alt"></i> Sair da Conta</h3>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <p class="modal-message">
+                    Tem certeza que deseja sair da sua conta? 
+                    Você precisará fazer login novamente para acessar.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelLogoutBtn">Cancelar</button>
+                <button class="btn-danger" id="confirmLogoutBtn">Sair</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Upload de Foto -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-camera"></i> Alterar Foto do Perfil</h3>
+                <button class="modal-close" id="closeUploadModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="upload-preview">
+                    <img id="imagePreview" src="https://ui-avatars.com/api/?name=Usuario+Rota&background=0d4f0d&color=ffffff&size=150" alt="Pré-visualização">
+                </div>
+                
+                <div class="upload-options">
+                    <div class="upload-option" id="uploadOption">
+                        <i class="fas fa-upload"></i>
+                        <span>Upload de arquivo</span>
+                        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                    </div>
+                    
+                    <div class="upload-option" id="cameraOption">
+                        <i class="fas fa-camera"></i>
+                        <span>Tirar foto</span>
+                    </div>
+                </div>
+                
+                <div class="upload-actions">
+                    <button class="btn-secondary" id="cancelUploadBtn">Cancelar</button>
+                    <button class="btn-primary" id="savePhotoBtn" disabled>Salvar Foto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript Personalizado -->
+    <script>
+      // Elementos DOM
+const menuToggle = document.getElementById('menuToggle');
+const sidebar = document.getElementById('sidebar');
+const sidebarClose = document.getElementById('sidebarClose');
+const overlay = document.getElementById('overlay');
+const logoutBtn = document.getElementById('logoutBtn');
+const logoutProfileBtn = document.getElementById('logoutProfileBtn');
+const logoutModal = document.getElementById('logoutModal');
+const cancelLogoutBtn = document.getElementById('cancelLogoutBtn');
+const confirmLogoutBtn = document.getElementById('confirmLogoutBtn');
+const editAvatarBtn = document.getElementById('editAvatarBtn');
+const uploadModal = document.getElementById('uploadModal');
+const closeUploadModal = document.getElementById('closeUploadModal');
+const cancelUploadBtn = document.getElementById('cancelUploadBtn');
+const savePhotoBtn = document.getElementById('savePhotoBtn');
+const fileInput = document.getElementById('fileInput');
+const uploadOption = document.getElementById('uploadOption');
+const cameraOption = document.getElementById('cameraOption');
+const profileAvatar = document.getElementById('profileAvatar');
+const imagePreview = document.getElementById('imagePreview');
+const interestsContainer = document.getElementById('interestsContainer');
+const interestsEmpty = document.getElementById('interestsEmpty');
+const editInterestsBtn = document.getElementById('editInterestsBtn');
+
+// Dados do usuário (simulados)
+let userData = {
+    name: "Usuário da Rota",
+    email: "usuario@email.com",
+    avatar: "https://ui-avatars.com/api/?name=Usuario+Rota&background=0d4f0d&color=ffffff&size=150",
+    interests: JSON.parse(localStorage.getItem('userPreferences') || '[]'),
+    isPremium: true,
+    isVerified: true,
+    isExplorer: true
+};
+
+// Interesses disponíveis com ícones
+const availableInterests = {
+    'lazer': { name: 'Lazer', icon: 'fas fa-umbrella-beach' },
+    'cultural': { name: 'Cultural', icon: 'fas fa-landmark' },
+    'tecnologia': { name: 'Tecnologia', icon: 'fas fa-laptop-code' },
+    'musica': { name: 'Música', icon: 'fas fa-music' },
+    'eventos': { name: 'Eventos', icon: 'fas fa-calendar-alt' },
+    'gastronomia': { name: 'Gastronomia', icon: 'fas fa-utensils' },
+    'viagens': { name: 'Viagens', icon: 'fas fa-plane' },
+    'arte': { name: 'Arte', icon: 'fas fa-palette' },
+    'natureza': { name: 'Natureza', icon: 'fas fa-tree' },
+    'esportes': { name: 'Esportes', icon: 'fas fa-running' },
+    'historia': { name: 'História', icon: 'fas fa-book-open' },
+    'compras': { name: 'Compras', icon: 'fas fa-shopping-bag' }
+};
+
+// Inicializar
+function initialize() {
+    loadUserData();
+    loadUserInterests();
+    
+    // Event Listeners para o menu lateral
+    menuToggle.addEventListener('click', toggleSidebar);
+    sidebarClose.addEventListener('click', toggleSidebar);
+    overlay.addEventListener('click', toggleSidebar);
+    
+    // Event Listeners para logout
+    logoutBtn.addEventListener('click', showLogoutModal);
+    logoutProfileBtn.addEventListener('click', showLogoutModal);
+    cancelLogoutBtn.addEventListener('click', hideLogoutModal);
+    confirmLogoutBtn.addEventListener('click', handleLogout);
+    
+    // Event Listeners para upload de foto
+    editAvatarBtn.addEventListener('click', showUploadModal);
+    closeUploadModal.addEventListener('click', hideUploadModal);
+    cancelUploadBtn.addEventListener('click', hideUploadModal);
+    savePhotoBtn.addEventListener('click', saveProfilePhoto);
+    
+    // Event Listeners para upload de arquivo
+    uploadOption.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', handleFileSelect);
+    
+    // Event Listeners para as opções do perfil
+    document.querySelectorAll('.option-item').forEach(item => {
+        item.addEventListener('click', function() {
+            handleOptionClick(this.id);
+        });
+    });
+}
+
+// Alternar barra lateral
+function toggleSidebar() {
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+    menuToggle.classList.toggle('active');
+    
+    if (sidebar.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Carregar dados do usuário
+function loadUserData() {
+    document.getElementById('profileName').textContent = userData.name;
+    document.getElementById('profileEmail').textContent = userData.email;
+    profileAvatar.src = userData.avatar;
+    
+    // Atualizar badges
+    const premiumBadge = document.querySelector('.premium-badge');
+    const explorerBadge = document.querySelector('.explorer-badge');
+    const verifiedBadge = document.querySelector('.verified-badge');
+    
+    if (!userData.isPremium) premiumBadge.style.display = 'none';
+    if (!userData.isExplorer) explorerBadge.style.display = 'none';
+    if (!userData.isVerified) verifiedBadge.style.display = 'none';
+}
+
+// Carregar interesses do usuário
+function loadUserInterests() {
+    interestsContainer.innerHTML = '';
+    
+    if (userData.interests.length > 0) {
+        interestsEmpty.style.display = 'none';
+        
+        userData.interests.forEach(interestId => {
+            if (availableInterests[interestId]) {
+                const interest = availableInterests[interestId];
+                const interestTag = document.createElement('div');
+                interestTag.className = 'interest-tag';
+                interestTag.innerHTML = `
+                    <i class="${interest.icon}"></i>
+                    ${interest.name}
+                `;
+                interestsContainer.appendChild(interestTag);
+            }
+        });
+    } else {
+        interestsEmpty.style.display = 'block';
+    }
+}
+
+// Mostrar modal de logout
+function showLogoutModal() {
+    logoutModal.style.display = 'flex';
+}
+
+// Esconder modal de logout
+function hideLogoutModal() {
+    logoutModal.style.display = 'none';
+}
+
+// Processar logout
+function handleLogout() {
+    // Simular logout
+    showNotification('Saindo da conta...', 'info');
+    
+    setTimeout(() => {
+        // Redirecionar para página de login
+        window.location.href = 'login.html';
+    }, 2000);
+}
+
+// Mostrar modal de upload
+function showUploadModal() {
+    uploadModal.style.display = 'flex';
+    imagePreview.src = profileAvatar.src;
+    savePhotoBtn.disabled = true;
+}
+
+// Esconder modal de upload
+function hideUploadModal() {
+    uploadModal.style.display = 'none';
+}
+
+// Processar seleção de arquivo
+function handleFileSelect(event) {
+    const file = event.target.files[0];
+    if (file) {
+        if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                savePhotoBtn.disabled = false;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            showNotification('Por favor, selecione uma imagem válida', 'error');
+        }
+    }
+}
+
+// Salvar foto de perfil
+function saveProfilePhoto() {
+    // Simular upload
+    showNotification('Salvando foto de perfil...', 'info');
+    
+    setTimeout(() => {
+        profileAvatar.src = imagePreview.src;
+        hideUploadModal();
+        showNotification('Foto de perfil atualizada com sucesso!', 'success');
+    }, 1500);
+}
+
+// Manipular clique nas opções
+function handleOptionClick(optionId) {
+    switch(optionId) {
+        case 'personalDataBtn':
+            showNotification('Abrindo dados pessoais...', 'info');
+            // Em produção: window.location.href = 'dados_pessoais.html';
+            break;
+            
+        case 'securityBtn':
+            showNotification('Abrindo configurações de segurança...', 'info');
+            // Em produção: window.location.href = 'seguranca.html';
+            break;
+            
+        case 'historyBtn':
+            showNotification('Abrindo histórico de rotas...', 'info');
+            // Em produção: window.location.href = 'historico.html';
+            break;
+            
+        case 'notificationsBtn':
+            // O switch já é manipulado pelo HTML
+            showNotification('Configurações de notificações alteradas', 'success');
+            break;
+            
+        case 'privacyBtn':
+            showNotification('Abrindo configurações de privacidade...', 'info');
+            // Em produção: window.location.href = 'privacidade.html';
+            break;
+            
+        case 'aboutBtn':
+            showNotification('Abrindo informações do app...', 'info');
+            // Em produção: window.location.href = 'sobre.html';
+            break;
+    }
+}
+
+// Mostrar notificação
+function showNotification(message, type = 'info') {
+    // Criar elemento de notificação
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    
+    // Estilos base
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+        font-weight: 500;
+        color: white;
+        max-width: 300px;
+    `;
+    
+    // Cores por tipo
+    switch(type) {
+        case 'success':
+            notification.style.background = '#2ecc71';
+            break;
+        case 'error':
+            notification.style.background = '#e74c3c';
+            break;
+        case 'info':
+            notification.style.background = '#3498db';
+            break;
+        default:
+            notification.style.background = '#3498db';
+    }
+    
+    document.body.appendChild(notification);
+    
+    // Remover após 3 segundos
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+        }
+    }, 3000);
+}
+
+// Adicionar estilos CSS para animações
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
+
+// Inicializar quando o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', initialize);
+    </script>
+</body>
+</html>

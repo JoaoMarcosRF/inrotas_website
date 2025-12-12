@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recuperar Senha - IN ROTA</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/style/usuario/recuperar_senha.css">
+</head>
+
+<body>
+    <!-- Card Central -->
+    <div class="card">
+        <!-- Seta Voltar -->
+        <button class="back-btn" id="backBtn">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+
+        <!-- Logo -->
+        <div class="logo-container">
+            <img src="/images/logo.png" alt="IN ROTA" class="logo">
+        </div>
+
+        <!-- Título -->
+        <h1 class="title">Recuperar senha</h1>
+
+        <!-- Subtítulo -->
+        <p class="subtitle">
+            Insira seu E-mail para receber o código de <br />
+            recuperação de senha
+        </p>
+
+        <!-- Formulário -->
+        <form id="recoveryForm">
+            <label for="email" class="label">E-mail</label>
+            <div class="input-container">
+                <input type="email" id="email" placeholder="Digite seu e-mail" required>
+                <i class="fas fa-envelope input-icon"></i>
+            </div>
+
+            <button type="submit" class="btn-primary" id="sendEmailBtn">
+                Enviar E-mail
+            </button>
+        </form>
+    </div>
+
+    <!-- Modal de Código -->
+    <div class="modal" id="codeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Código Enviado</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <p class="modal-message">
+                    Enviamos um código de 6 dígitos para: 
+                    <strong id="emailSent"></strong>
+                </p>
+                <div class="code-container">
+                    <div class="code-inputs">
+                        <input type="text" maxlength="1" class="code-input" autofocus>
+                        <input type="text" maxlength="1" class="code-input">
+                        <input type="text" maxlength="1" class="code-input">
+                        <input type="text" maxlength="1" class="code-input">
+                        <input type="text" maxlength="1" class="code-input">
+                        <input type="text" maxlength="1" class="code-input">
+                    </div>
+                    <p class="code-hint">Digite o código recebido no seu e-mail</p>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-primary" id="verifyCodeBtn">
+                        Verificar Código
+                    </button>
+                    <button class="btn-secondary" id="resendCodeBtn">
+                        Reenviar Código
+                    </button>
+                    <p class="timer" id="timer">Reenviar código em <span id="countdown">1:00</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Enviando e-mail...</p>
+    </div>
+
+    <script>
+      // Elementos DOM
+const backBtn = document.getElementById('backBtn');
+const recoveryForm = document.getElementById('recoveryForm');
+const emailInput = document.getElementById('email');
+const sendEmailBtn = document.getElementById('sendEmailBtn');
+const codeModal = document.getElementById('codeModal');
+const modalClose = document.getElementById('modalClose');
+const verifyCodeBtn = document.getElementById('verifyCodeBtn');
+const resendCodeBtn = document.getElementById('resendCodeBtn');
+const emailSent = document.getElementById('emailSent');
+const countdown = document.getElementById('countdown');
+const loading = document.getElementById('loading');
+const codeInputs = document.querySelectorAll('.code-input');
+
+// Voltar para a página anterior
+backBtn.addEventListener('click', () => {
+    window.history.back();
+});
+
+// Enviar formulário de recuperação
+recoveryForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const email = emailInput.value.trim();
+    
+    if (!validateEmail(email)) {
+        showNotification('Por favor, insira um e-mail válido', 'error');
+        emailInput.focus();
+        return;
+    }
+    
+    // Mostrar loading
+    loading.style.display = 'flex';
+    
+    // Simular envio de e-mail
+    setTimeout(() => {
+        loading.style.display = 'none';
+        emailSent.textContent = email;
+        showCodeModal();
+        startCountdown();
+        showNotification('Código enviado para seu e-mail!', 'success');
+    }, 1500);
+});
+
+// Fechar modal
+modalClose.addEventListener('click', () => {
+    codeModal.style.display = 'none';
+});
+
+// Verificar código
+verifyCodeBtn.addEventListener('click', () => {
+    const code = getCodeFromInputs();
+    
+    if (code.length !== 6) {
+        showNotification('Por favor, preencha todos os dígitos', 'error');
+        return;
+    }
+    
+    loading.style.display = 'flex';
+    
+    setTimeout(() => {
+        loading.style.display = 'none';
+        showNotification('Código verificado! Redirecionando...', 'success');
+        
+        // Redirecionar para página de nova senha após 2 segundos
+        setTimeout(() => {
+            window.location.href = 'nova_senha.html';
+        }, 2000);
+    }, 1500);
+});
+
+// Reenviar código
+resendCodeBtn.addEventListener('click', () => {
+    loading.style.display = 'flex';
+    
+    setTimeout(() => {
+        loading.style.display = 'none';
+        startCountdown();
+        showNotification('Código reenviado com sucesso!', 'success');
+    }, 1500);
+});
+
+// Navegar entre inputs do código
+codeInputs.forEach((input, index) => {
+    input.addEventListener('input', (e) => {
+        // Permitir apenas números
+        e.target.value = e.target.value.replace(/\D/g, '');
+        
+        if (e.target.value.length === 1 && index < codeInputs.length - 1) {
+            codeInputs[index + 1].focus();
+        }
+    });
+    
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !e.target.value && index > 0) {
+            codeInputs[index - 1].focus();
+        }
+    });
+});
+
+// Fechar modal ao clicar fora
+window.addEventListener('click', (e) => {
+    if (e.target === codeModal) {
+        codeModal.style.display = 'none';
+    }
+});
+
+// ========== FUNÇÕES AUXILIARES ==========
+
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+function showCodeModal() {
+    codeModal.style.display = 'flex';
+    codeInputs[0].focus();
+    codeInputs.forEach(input => input.value = '');
+}
+
+function getCodeFromInputs() {
+    let code = '';
+    codeInputs.forEach(input => {
+        code += input.value;
+    });
+    return code;
+}
+
+function startCountdown() {
+    let time = 60; // 1 minuto
+    resendCodeBtn.disabled = true;
+    
+    const timer = setInterval(() => {
+        const minutes = Math.floor(time / 60);
+        const seconds = time % 60;
+        
+        countdown.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        
+        if (time <= 0) {
+            clearInterval(timer);
+            resendCodeBtn.disabled = false;
+            countdown.textContent = '0:00';
+        }
+        
+        time--;
+    }, 1000);
+}
+
+function showNotification(message, type = 'info') {
+    // Criar elemento de notificação
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    
+    // Estilos base
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+        font-weight: 500;
+        color: white;
+        max-width: 300px;
+        font-size: 14px;
+    `;
+    
+    // Cores por tipo
+    if (type === 'success') {
+        notification.style.background = '#2ecc71';
+    } else if (type === 'error') {
+        notification.style.background = '#e74c3c';
+    } else {
+        notification.style.background = '#3498db';
+    }
+    
+    document.body.appendChild(notification);
+    
+    // Remover após 3 segundos
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+        }
+    }, 3000);
+}
+
+// Adicionar estilos CSS para animações
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
+    </script>
+</body>
+</html>

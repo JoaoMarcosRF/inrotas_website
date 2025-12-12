@@ -1,0 +1,442 @@
+/* ===========================
+   VARIÁVEIS GLOBAIS
+============================== */
+:root {
+    --primary-green: #0d4f0d;
+    --dark-green: #083d08;
+    --light-green: #2e8b57;
+    --accent-blue: #1a5ce4;
+    --hover-blue: #004ae0;
+    --white: #ffffff;
+    --off-white: #fdf5e6;
+    --text-dark: #333333;
+    --text-light: #666666;
+    --shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.2);
+    --transition: all 0.3s ease;
+    --border-radius: 18px;
+}
+
+/* ===========================
+   RESET E CONFIGURAÇÕES BASE
+============================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: var(--primary-green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===========================
+   CARD CENTRAL
+============================== */
+.card {
+    width: 380px;
+    height: auto;
+    background: var(--off-white);
+    padding: 40px 50px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    position: relative;
+    box-shadow: var(--shadow);
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===========================
+   SETA/BOTÃO VOLTAR
+============================== */
+.back-btn {
+    position: absolute;
+    left: 25px;
+    top: 25px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: var(--off-white);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--text-dark);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.back-btn:hover {
+    background: #f0e6d6;
+    transform: translateX(-3px);
+    color: var(--primary-green);
+}
+
+/* ===========================
+   LOGO
+============================== */
+.logo-container {
+    margin: 20px 0 30px;
+}
+
+.logo {
+    width: 250px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* ===========================
+   TÍTULO E SUBTÍTULO
+============================== */
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    margin-top: -10px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: var(--text-light);
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
+/* ===========================
+   FORMULÁRIO
+============================== */
+form {
+    margin-top: 10px;
+}
+
+.label {
+    font-size: 14px;
+    color: var(--text-dark);
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 12px 16px 12px 45px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    background: var(--white);
+    font-size: 14px;
+    color: var(--text-dark);
+    transition: var(--transition);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input-container input::placeholder {
+    color: #999;
+}
+
+.input-container input:focus {
+    outline: none;
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 2px rgba(13, 79, 13, 0.1);
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    font-size: 16px;
+}
+
+/* ===========================
+   BOTÃO PRINCIPAL
+============================== */
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent-blue);
+    border: none;
+    border-radius: 10px;
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 10px rgba(52, 110, 216, 0.3);
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background: var(--hover-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(52, 110, 216, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* ===========================
+   MODAL
+============================== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background: var(--off-white);
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 400px;
+    overflow: hidden;
+    box-shadow: var(--shadow-hover);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: var(--primary-green);
+    color: var(--white);
+}
+
+.modal-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 24px;
+    cursor: pointer;
+    transition: var(--transition);
+    line-height: 1;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    transform: scale(1.2);
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.success-icon {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.success-icon i {
+    font-size: 50px;
+    color: #2ecc71;
+}
+
+.modal-message {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-dark);
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.modal-message strong {
+    color: var(--primary-green);
+}
+
+.code-container {
+    margin: 25px 0;
+}
+
+.code-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.code-input {
+    width: 45px;
+    height: 55px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: var(--white);
+    transition: var(--transition);
+}
+
+.code-input:focus {
+    outline: none;
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 2px rgba(13, 79, 13, 0.1);
+}
+
+.code-hint {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-light);
+    margin-top: 10px;
+}
+
+.modal-actions {
+    margin-top: 25px;
+}
+
+.btn-secondary {
+    width: 100%;
+    padding: 12px;
+    background: var(--white);
+    color: var(--text-dark);
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 10px;
+}
+
+.btn-secondary:hover {
+    background: #f5f5f5;
+    border-color: #ccc;
+}
+
+.timer {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-light);
+    margin-top: 15px;
+}
+
+.timer span {
+    font-weight: 600;
+    color: var(--primary-green);
+}
+
+/* ===========================
+   LOADING
+============================== */
+.loading {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--accent-blue);
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 10px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading p {
+    font-size: 14px;
+}
+
+/* ===========================
+   RESPONSIVIDADE
+============================== */
+@media (max-width: 480px) {
+    .card {
+        width: 90%;
+        max-width: 350px;
+        padding: 30px 25px;
+    }
+    
+    .back-btn {
+        left: 20px;
+        top: 20px;
+    }
+    
+    .logo {
+        width: 100px;
+    }
+    
+    .title {
+        font-size: 22px;
+    }
+    
+    .modal-content {
+        width: 95%;
+    }
+    
+    .code-input {
+        width: 40px;
+        height: 50px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 360px) {
+    .card {
+        padding: 25px 20px;
+    }
+    
+    .code-input {
+        width: 35px;
+        height: 45px;
+        font-size: 18px;
+    }
+}

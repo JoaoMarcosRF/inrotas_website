@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agenda Cultural - IN ROTA</title>
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="/style/usuario/agenda_cultural.css">
+
+</head>
+
+<body>
+    <!-- Barra Superior -->
+    <div class="topo">
+        <div class="logo-container">
+            <img src="/images/logo.png" class="logo" alt="IN ROTA Logo">
+        </div>
+        
+        <div class="user-controls">
+            <div class="perfil" onclick="window.location.href='perfil_usuario.html'">
+                <img src="/images/fotoUsuario.png" alt="Foto do usuário" class="user-avatar">
+                <span class="user-name">Usuário</span>
+            </div>
+            
+            <div class="menu-toggle" id="menuToggle">
+                <div class="linha"></div>
+                <div class="linha"></div>
+                <div class="linha"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra Lateral (Menu) -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="user-info">
+                <img src="/images/fotoUsuario.png" alt="Foto do usuário" class="sidebar-avatar">
+                <div class="user-details">
+                    <h4>Usuário</h4>
+                    <p>usuario@email.com</p>
+                </div>
+            </div>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="home.html" class="menu-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            
+            <a href="perfil.html" class="menu-item">
+                <i class="fas fa-user"></i>
+                <span>Meu Perfil</span>
+            </a>
+            
+            <a href="preferencias.html" class="menu-item">
+                <i class="fas fa-heart"></i>
+                <span>Minhas Preferências</span>
+            </a>
+            
+            <a href="rotas_salvas.html" class="menu-item">
+                <i class="fas fa-bookmark"></i>
+                <span>Rotas Salvas</span>
+            </a>
+            
+            <a href="historico.html" class="menu-item">
+                <i class="fas fa-history"></i>
+                <span>Histórico</span>
+            </a>
+            
+            <a href="agenda_cultural.html" class="menu-item active">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Agenda Cultural</span>
+            </a>
+            
+            <a href="configuracoes.html" class="menu-item">
+                <i class="fas fa-cog"></i>
+                <span>Configurações</span>
+            </a>
+            
+            <div class="menu-divider"></div>
+            
+            <a href="ajuda.html" class="menu-item">
+                <i class="fas fa-question-circle"></i>
+                <span>Ajuda e Suporte</span>
+            </a>
+            
+            <a href="#" class="menu-item logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Sair</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <p>IN ROTA v1.0</p>
+        </div>
+    </div>
+
+    <!-- Overlay para fechar menu -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+        <!-- Cabeçalho da Página -->
+        <div class="page-header">
+            <h1 class="page-title">Agenda Cultural</h1>
+            <p class="page-subtitle">Descubra os melhores eventos culturais de Recife e região</p>
+        </div>
+
+        <!-- Barra de Busca -->
+        <div class="search-container">
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Busque por eventos, artistas ou locais...">
+                <i class="fas fa-microphone mic-icon"></i>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="filters-container">
+            <button class="filter-button" id="filterBtn">
+                <i class="fas fa-filter"></i>
+                <span>Filtrar</span>
+            </button>
+            <button class="filter-button" id="categoryBtn">
+                <i class="fas fa-tags"></i>
+                <span>Categoria</span>
+            </button>
+            <button class="filter-button" id="calendarBtn">
+                <i class="fas fa-calendar"></i>
+                <span>Calendário</span>
+            </button>
+        </div>
+
+        <!-- Tags de Categoria -->
+        <div class="category-tags">
+            <div class="category-tag active" data-category="all">
+                <i class="fas fa-star"></i>
+                <span>Todos</span>
+            </div>
+            <div class="category-tag" data-category="festas">
+                <i class="fas fa-music"></i>
+                <span>Festas</span>
+            </div>
+            <div class="category-tag" data-category="cinema">
+                <i class="fas fa-film"></i>
+                <span>Cinema</span>
+            </div>
+            <div class="category-tag" data-category="culinaria">
+                <i class="fas fa-utensils"></i>
+                <span>Culinária</span>
+            </div>
+            <div class="category-tag" data-category="exposicao">
+                <i class="fas fa-palette"></i>
+                <span>Exposição</span>
+            </div>
+        </div>
+
+        <!-- Grid de Eventos -->
+        <div class="events-section">
+            <h2 class="section-title">
+                <i class="fas fa-fire"></i>
+                Eventos em Destaque
+            </h2>
+            
+            <div class="events-grid">
+                <!-- Evento 1 - Festas -->
+                <div class="event-card festas-card" data-category="festas">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="category-badge">Festejos</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="event-title">Prévias de Olinda</h3>
+                        <div class="event-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>22 e 23 de novembro</span>
+                        </div>
+                        <p class="event-description">
+                            Prepare-se para a animação do Carnaval de Pernambuco! As tradicionais prévias de Olinda trazem blocos de rua, frevo e muito arrasta-pé.
+                        </p>
+                        <div class="event-footer">
+                            <div class="event-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Olinda, PE</span>
+                            </div>
+                            <button class="saber-mais" data-event="previas-olinda">
+                                Saber mais
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evento 2 - Cinema -->
+                <div class="event-card cinema-card" data-category="cinema">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1489599809516-9827b6d1cf13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80');">
+                        <div class="category-badge">Cinema</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="event-title">O Agente Secreto - Estreia</h3>
+                        <div class="event-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>27 de novembro</span>
+                        </div>
+                        <p class="event-description">
+                            Estreia exclusiva do novo filme de ação nacional. Sessão especial com presença do diretor e elenco principal.
+                        </p>
+                        <div class="event-footer">
+                            <div class="event-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Cinema da Praça</span>
+                            </div>
+                            <button class="saber-mais" data-event="agente-secreto">
+                                Saber mais
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evento 3 - Culinária -->
+                <div class="event-card culinaria-card" data-category="culinaria">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80');">
+                        <div class="category-badge">Culinária</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="event-title">Cantinho do Axé - Comida di Buteco</h3>
+                        <div class="event-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>30 nov e 01 dez</span>
+                        </div>
+                        <p class="event-description">
+                            Festival gastronômico com as melhores comidas de boteco da região. Petiscos, chopp artesanal e música ao vivo.
+                        </p>
+                        <div class="event-footer">
+                            <div class="event-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Boa Viagem</span>
+                            </div>
+                            <button class="saber-mais" data-event="comida-buteco">
+                                Saber mais
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evento 4 - Exposição -->
+                <div class="event-card exposicao-card" data-category="exposicao">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1578303501856-9a2475a0e753?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="category-badge">Exposição</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="event-title">MAMAM - Abertura</h3>
+                        <div class="event-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>27 de novembro</span>
+                        </div>
+                        <p class="event-description">
+                            Abertura da nova exposição "Arte Contemporânea Nordestina" no Museu de Arte Moderna Aloísio Magalhães.
+                        </p>
+                        <div class="event-footer">
+                            <div class="event-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>MAMAM, Recife Antigo</span>
+                            </div>
+                            <button class="saber-mais" data-event="mamam-abertura">
+                                Saber mais
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evento 5 - Festas -->
+                <div class="event-card festas-card" data-category="festas">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="category-badge">Festejos</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="event-title">Noite do Frevo</h3>
+                        <div class="event-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>15 de dezembro</span>
+                        </div>
+                        <p class="event-description">
+                            Celebração do ritmo pernambucano com apresentações de orquestras de frevo, dançarinos e oficinas.
+                        </p>
+                        <div class="event-footer">
+                            <div class="event-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Paço do Frevo</span>
+                            </div>
+                            <button class="saber-mais" data-event="noite-frevo">
+                                Saber mais
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evento 6 - Culinária -->
+                <div class="event-card culinaria-card" data-category="culinaria">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1381&q=80');">
+                        <div class="category-badge">Culinária</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="event-title">Festival de Comidas Típicas</h3>
+                        <div class="event-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>5 a 10 de dezembro</span>
+                        </div>
+                        <p class="event-description">
+                            Degustação das comidas típicas pernambucanas: bolo de rolo, carne de sol, tapioca e muito mais.
+                        </p>
+                        <div class="event-footer">
+                            <div class="event-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Marco Zero</span>
+                            </div>
+                            <button class="saber-mais" data-event="festival-comidas">
+                                Saber mais
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Detalhes do Evento -->
+    <div class="modal" id="eventModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalEventTitle">Detalhes do Evento</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img id="modalEventImage" src="" class="modal-image" alt="Imagem do Evento">
+                
+                <div class="modal-details">
+                    <div class="detail-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div>
+                            <div class="detail-label">Data</div>
+                            <div class="detail-value" id="modalEventDate"></div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <div class="detail-label">Horário</div>
+                            <div class="detail-value" id="modalEventTime"></div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <div class="detail-label">Local</div>
+                            <div class="detail-value" id="modalEventLocation"></div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-tag"></i>
+                        <div>
+                            <div class="detail-label">Categoria</div>
+                            <div class="detail-value" id="modalEventCategory"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="modal-description" id="modalEventDescription"></p>
+                
+                <div class="modal-actions">
+                    <button class="btn-secondary" id="shareEventBtn">
+                        <i class="fas fa-share-alt"></i>
+                        Compartilhar
+                    </button>
+                    <button class="btn-primary" id="saveEventBtn">
+                        <i class="fas fa-bookmark"></i>
+                        Salvar Evento
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript Personalizado -->
+    <script>
+        // Elementos DOM
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarClose = document.getElementById('sidebarClose');
+        const overlay = document.getElementById('overlay');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const filterBtn = document.getElementById('filterBtn');
+        const categoryBtn = document.getElementById('categoryBtn');
+        const calendarBtn = document.getElementById('calendarBtn');
+        const searchInput = document.querySelector('.search-input');
+        const micIcon = document.querySelector('.mic-icon');
+        const categoryTags = document.querySelectorAll('.category-tag');
+        const saberMaisBtns = document.querySelectorAll('.saber-mais');
+        const eventModal = document.getElementById('eventModal');
+        const modalClose = document.getElementById('modalClose');
+        const shareEventBtn = document.getElementById('shareEventBtn');
+        const saveEventBtn = document.getElementById('saveEventBtn');
+        const eventCards = document.querySelectorAll('.event-card');
+
+        // Dados dos Eventos
+        const eventos = {
+            'previas-olinda': {
+                title: 'Prévias de Olinda',
+                date: '22 e 23 de novembro',
+                time: 'A partir das 18h',
+                location: 'Centro Histórico de Olinda, PE',
+                category: 'Festejos',
+                description: 'As tradicionais prévias do Carnaval de Pernambuco começam em Olinda! Esta é a oportunidade perfeita para aquecer os motores para a maior festa popular do Brasil. Com blocos de rua, apresentações de frevo, maracatu e muito arrasta-pé, as prévias prometem agitar as ladeiras do Patrimônio Histórico da Humanidade. Traga sua sombrinha e venha dançar ao som das melhores orquestras de frevo da região.',
+                image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
+            },
+            'agente-secreto': {
+                title: 'O Agente Secreto - Estreia',
+                date: '27 de novembro',
+                time: '19h30',
+                location: 'Cinema da Praça, Recife',
+                category: 'Cinema',
+                description: 'Estreia exclusiva do aguardado filme nacional de ação "O Agente Secreto". A produção conta a história de um ex-agente do governo que é forçado a sair da aposentadoria para uma última missão. Após a sessão, haverá um debate especial com o diretor e parte do elenco. Vagas limitadas!',
+                image: 'https://images.unsplash.com/photo-1489599809516-9827b6d1cf13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80'
+            },
+            'comida-buteco': {
+                title: 'Cantinho do Axé - Comida di Buteco',
+                date: '30 de novembro e 1 de dezembro',
+                time: '12h às 23h',
+                location: 'Rua do Sossego, Boa Viagem, Recife',
+                category: 'Culinária',
+                description: 'O famoso festival gastronômico "Comida di Buteco" chega ao Cantinho do Axé! Durante dois dias, você poderá degustar os melhores petiscos de boteco da cidade, acompanhados de chopp artesanal geladíssimo. Haverá música ao vivo com bandas locais e um concurso para eleger o melhor petisco do evento.',
+                image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80'
+            },
+            'mamam-abertura': {
+                title: 'MAMAM - Abertura da Exposição',
+                date: '27 de novembro',
+                time: '18h às 21h',
+                location: 'Museu de Arte Moderna Aloísio Magalhães, Recife Antigo',
+                category: 'Exposição',
+                description: 'O Museu de Arte Moderna Aloísio Magalhães (MAMAM) inaugura a exposição "Arte Contemporânea Nordestina: Novos Caminhos". A mostra reúne obras de artistas emergentes da região Nordeste, explorando temas como identidade, território e memória. A abertura conta com coquetel e apresentação musical.',
+                image: 'https://images.unsplash.com/photo-1578303501856-9a2475a0e753?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
+            },
+            'noite-frevo': {
+                title: 'Noite do Frevo',
+                date: '15 de dezembro',
+                time: '20h',
+                location: 'Paço do Frevo, Recife Antigo',
+                category: 'Festejos',
+                description: 'Uma noite especial dedicada ao frevo, Patrimônio Imaterial da Humanidade. Com apresentações das principais orquestras de frevo de Pernambuco, demonstrações de dança e oficinas rápidas para quem quer aprender os passos básicos.',
+                image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
+            },
+            'festival-comidas': {
+                title: 'Festival de Comidas Típicas',
+                date: '5 a 10 de dezembro',
+                time: '10h às 22h',
+                location: 'Marco Zero, Recife Antigo',
+                category: 'Culinária',
+                description: 'O maior festival de comidas típicas pernambucanas! Durante seis dias, você poderá experimentar pratos como bolo de rolo, carne de sol com macaxeira, tapioca recheada, sarapatel, buchada e muito mais. Haverá também apresentações culturais e oficinas de culinária.',
+                image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1381&q=80'
+            }
+        };
+
+        // Eventos salvos pelo usuário
+        let savedEvents = JSON.parse(localStorage.getItem('savedEvents') || '[]');
+
+        // Inicializar
+        function initialize() {
+            // Event Listeners para o menu lateral
+            menuToggle.addEventListener('click', toggleSidebar);
+            sidebarClose.addEventListener('click', toggleSidebar);
+            overlay.addEventListener('click', toggleSidebar);
+            
+            // Event Listener para logout
+            logoutBtn.addEventListener('click', handleLogout);
+            
+            // Event Listeners para botões de filtro
+            filterBtn.addEventListener('click', () => {
+                showNotification('Abrindo filtros avançados...', 'info');
+            });
+            
+            categoryBtn.addEventListener('click', () => {
+                showNotification('Selecionando categorias...', 'info');
+            });
+            
+            calendarBtn.addEventListener('click', () => {
+                showNotification('Abrindo calendário...', 'info');
+            });
+            
+            // Event Listener para busca
+            searchInput.addEventListener('input', handleSearch);
+            searchInput.addEventListener('focus', () => {
+                document.querySelector('.search-bar').classList.add('focused');
+            });
+            
+            searchInput.addEventListener('blur', () => {
+                document.querySelector('.search-bar').classList.remove('focused');
+            });
+            
+            // Event Listener para microfone
+            micIcon.addEventListener('click', startVoiceSearch);
+            
+            // Event Listeners para tags de categoria
+            categoryTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    filterByCategory(category);
+                });
+            });
+            
+            // Event Listeners para botões "Saber mais"
+            saberMaisBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const eventId = this.getAttribute('data-event');
+                    showEventDetails(eventId);
+                });
+            });
+            
+            // Event Listeners para cards de evento
+            eventCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('.saber-mais')) {
+                        const eventId = this.querySelector('.saber-mais').getAttribute('data-event');
+                        showEventDetails(eventId);
+                    }
+                });
+            });
+            
+            // Event Listeners para modal
+            modalClose.addEventListener('click', closeModal);
+            shareEventBtn.addEventListener('click', shareEvent);
+            saveEventBtn.addEventListener('click', saveEvent);
+            
+            // Fechar modal ao clicar fora
+            window.addEventListener('click', (e) => {
+                if (e.target === eventModal) {
+                    closeModal();
+                }
+            });
+            
+            // Inicializar animações
+            initializeAnimations();
+        }
+
+        // Alternar barra lateral
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+            
+            if (sidebar.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Filtrar por categoria
+        function filterByCategory(category) {
+            // Atualizar tags ativas
+            categoryTags.forEach(tag => {
+                if (tag.getAttribute('data-category') === category) {
+                    tag.classList.add('active');
+                } else {
+                    tag.classList.remove('active');
+                }
+            });
+            
+            // Filtrar eventos
+            eventCards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                    // Animar entrada
+                    card.style.animation = 'fadeInUp 0.5s ease-out';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            showNotification(`Mostrando eventos: ${category === 'all' ? 'Todos' : category}`, 'info');
+        }
+
+        // Buscar eventos
+        function handleSearch() {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            eventCards.forEach(card => {
+                const title = card.querySelector('.event-title').textContent.toLowerCase();
+                const description = card.querySelector('.event-description').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    // Animar entrada
+                    card.style.animation = 'fadeInUp 0.5s ease-out';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Busca por voz
+        function startVoiceSearch() {
+            showNotification('Iniciando busca por voz...', 'info');
+            
+            // Em um sistema real, isso usaria a Web Speech API
+            // Para demonstração, simulamos uma busca após 1 segundo
+            setTimeout(() => {
+                searchInput.value = 'cinema';
+                handleSearch();
+                showNotification('Buscando por "cinema"', 'success');
+            }, 1000);
+        }
+
+        // Mostrar detalhes do evento
+        function showEventDetails(eventId) {
+            const event = eventos[eventId];
+            
+            if (!event) return;
+            
+            // Preencher modal com dados do evento
+            document.getElementById('modalEventTitle').textContent = event.title;
+            document.getElementById('modalEventImage').src = event.image;
+            document.getElementById('modalEventImage').alt = event.title;
+            document.getElementById('modalEventDate').textContent = event.date;
+            document.getElementById('modalEventTime').textContent = event.time;
+            document.getElementById('modalEventLocation').textContent = event.location;
+            document.getElementById('modalEventCategory').textContent = event.category;
+            document.getElementById('modalEventDescription').textContent = event.description;
+            
+            // Verificar se evento já está salvo
+            const isSaved = savedEvents.includes(eventId);
+            saveEventBtn.innerHTML = isSaved ? 
+                '<i class="fas fa-bookmark"></i> Evento Salvo' : 
+                '<i class="far fa-bookmark"></i> Salvar Evento';
+            saveEventBtn.style.background = isSaved ? 
+                'linear-gradient(135deg, var(--primary-green), var(--light-green))' : 
+                'linear-gradient(135deg, var(--accent-blue), var(--hover-blue))';
+            
+            // Armazenar ID do evento atual
+            eventModal.setAttribute('data-current-event', eventId);
+            
+            // Mostrar modal
+            eventModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fechar modal
+        function closeModal() {
+            eventModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Compartilhar evento
+        function shareEvent() {
+            const eventId = eventModal.getAttribute('data-current-event');
+            const event = eventos[eventId];
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: event.title,
+                    text: `Confira este evento: ${event.title} - ${event.date} em ${event.location}`,
+                    url: window.location.href,
+                })
+                .then(() => showNotification('Evento compartilhado!', 'success'))
+                .catch(err => showNotification('Erro ao compartilhar', 'error'));
+            } else {
+                // Fallback para copiar link
+                navigator.clipboard.writeText(`${event.title} - ${event.date} em ${event.location}`)
+                    .then(() => showNotification('Link copiado para área de transferência!', 'success'))
+                    .catch(err => showNotification('Erro ao copiar link', 'error'));
+            }
+        }
+
+        // Salvar evento
+        function saveEvent() {
+            const eventId = eventModal.getAttribute('data-current-event');
+            const index = savedEvents.indexOf(eventId);
+            
+            if (index === -1) {
+                // Salvar evento
+                savedEvents.push(eventId);
+                showNotification('Evento salvo com sucesso!', 'success');
+                saveEventBtn.innerHTML = '<i class="fas fa-bookmark"></i> Evento Salvo';
+                saveEventBtn.style.background = 'linear-gradient(135deg, var(--primary-green), var(--light-green))';
+            } else {
+                // Remover evento
+                savedEvents.splice(index, 1);
+                showNotification('Evento removido dos salvos', 'info');
+                saveEventBtn.innerHTML = '<i class="far fa-bookmark"></i> Salvar Evento';
+                saveEventBtn.style.background = 'linear-gradient(135deg, var(--accent-blue), var(--hover-blue))';
+            }
+            
+            // Salvar no localStorage
+            localStorage.setItem('savedEvents', JSON.stringify(savedEvents));
+        }
+
+        // Processar logout
+        function handleLogout() {
+            showNotification('Saindo da conta...', 'info');
+            
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1500);
+        }
+
+        // Inicializar animações
+        function initializeAnimations() {
+            // Observer para animar elementos ao rolar
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observar cards para animação
+            document.querySelectorAll('.event-card').forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        }
+
+        // Mostrar notificação
+        function showNotification(message, type = 'info') {
+            // Criar elemento de notificação
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            
+            // Estilo por tipo
+            switch(type) {
+                case 'success':
+                    notification.style.borderLeftColor = '#2ecc71';
+                    break;
+                case 'error':
+                    notification.style.borderLeftColor = '#e74c3c';
+                    break;
+                case 'info':
+                    notification.style.borderLeftColor = '#3498db';
+                    break;
+            }
+            
+            document.body.appendChild(notification);
+            
+            // Remover após 3 segundos
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 3000);
+        }
+
+        // Inicializar quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', initialize);
+    </script>
+</body>
+</html>

@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formas de Pagamento - IN ROTA</title>
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="/style/usuario/formas_de_pagamento.css">
+
+</head>
+
+<body>
+    <!-- Barra Superior -->
+    <div class="topo">
+        <div class="logo-container">
+            <img src="/images/logo.png" class="logo" alt="IN ROTA Logo">
+        </div>
+        
+        <div class="user-controls">
+            <div class="perfil" onclick="window.location.href='perfil_usuario.html'">
+                <img src="/images/fotoUsuario.png" alt="Foto do usuário" class="user-avatar">
+                <span class="user-name">Usuário</span>
+            </div>
+            
+            <div class="menu-toggle" id="menuToggle">
+                <div class="linha"></div>
+                <div class="linha"></div>
+                <div class="linha"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra Lateral (Menu) -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="user-info">
+                <img src="/images/fotoUsuario.png" alt="Foto do usuário" class="sidebar-avatar">
+                <div class="user-details">
+                    <h4>Usuário</h4>
+                    <p>usuario@email.com</p>
+                </div>
+            </div>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="home.html" class="menu-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            
+            <a href="perfil_usuario.html" class="menu-item">
+                <i class="fas fa-user"></i>
+                <span>Meu Perfil</span>
+            </a>
+            
+            <a href="preferencias.html" class="menu-item">
+                <i class="fas fa-heart"></i>
+                <span>Minhas Preferências</span>
+            </a>
+            
+            <a href="rotas_salvas.html" class="menu-item">
+                <i class="fas fa-bookmark"></i>
+                <span>Rotas Salvas</span>
+            </a>
+            
+            <a href="historico.html" class="menu-item">
+                <i class="fas fa-history"></i>
+                <span>Histórico</span>
+            </a>
+            
+            <a href="configuracoes.html" class="menu-item">
+                <i class="fas fa-cog"></i>
+                <span>Configurações</span>
+            </a>
+            
+            <div class="menu-divider"></div>
+            
+            <a href="#" class="menu-item active">
+                <i class="fas fa-credit-card"></i>
+                <span>Pagamentos</span>
+            </a>
+            
+            <a href="ajuda.html" class="menu-item">
+                <i class="fas fa-question-circle"></i>
+                <span>Ajuda e Suporte</span>
+            </a>
+            
+            <a href="#" class="menu-item logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Sair</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <p>IN ROTA v1.0</p>
+        </div>
+    </div>
+
+    <!-- Overlay para fechar menu -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+        <!-- Cabeçalho da Página -->
+        <div class="page-header">
+            <h1 class="page-title">Formas de Pagamento</h1>
+            <p class="page-subtitle">Escolha a forma de pagamento mais conveniente para você</p>
+        </div>
+
+        <!-- Abas de Pagamento -->
+        <div class="payment-tabs">
+            <div class="tabs-container">
+                <button class="tab-btn active" data-target="cartao">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Cartão de Crédito/Débito</span>
+                </button>
+                
+                <button class="tab-btn" data-target="pix">
+                    <i class="fab fa-pix"></i>
+                    <span>PIX</span>
+                </button>
+                
+                <button class="tab-btn" data-target="boleto">
+                    <i class="fas fa-barcode"></i>
+                    <span>Boleto Bancário</span>
+                </button>
+            </div>
+
+            <!-- ➤ TELA 1 — CARTÃO DE CRÉDITO/DÉBITO -->
+            <section id="cartao" class="tab-content active">
+                <div class="card-form-container">
+                    <div class="form-section">
+                        <!-- Preview do Cartão -->
+                        <div class="card-preview" id="cardPreview">
+                            <div class="card-chip"></div>
+                            <div class="card-number" id="previewCardNumber">**** **** **** ****</div>
+                            <div class="card-details">
+                                <div class="card-holder" id="previewCardHolder">NOME DO TITULAR</div>
+                                <div class="card-expiry" id="previewCardExpiry">MM/AA</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Formulário do Cartão -->
+                        <div class="form-card">
+                            <h3 class="section-title">Informações do Cartão</h3>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Número do Cartão</label>
+                                <input type="text" class="form-control" id="cardNumber" 
+                                    placeholder="1234 5678 9012 3456" maxlength="19">
+                                <small class="text-muted">Digite sem espaços</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Nome do Titular</label>
+                                <input type="text" class="form-control" id="cardHolder" 
+                                    placeholder="Como está no cartão">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Data de Validade</label>
+                                    <input type="text" class="form-control" id="cardExpiry" 
+                                        placeholder="MM/AA" maxlength="5">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">CVV</label>
+                                    <input type="text" class="form-control" id="cardCVV" 
+                                        placeholder="123" maxlength="4">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Parcelamento</label>
+                                <select class="form-control" id="installments">
+                                    <option value="1">1x de R$ 24,99</option>
+                                    <option value="2">2x de R$ 12,50</option>
+                                    <option value="3">3x de R$ 8,33</option>
+                                    <option value="4">4x de R$ 6,25</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Endereço de Cobrança -->
+                        <div class="form-card" style="margin-top: 20px;">
+                            <h3 class="section-title">Endereço de Cobrança</h3>
+                            
+                            <div class="form-group">
+                                <label class="form-label">CEP</label>
+                                <input type="text" class="form-control" id="cep" 
+                                    placeholder="00000-000">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Estado</label>
+                                    <input type="text" class="form-control" id="estado" 
+                                        placeholder="SP">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Cidade</label>
+                                    <input type="text" class="form-control" id="cidade" 
+                                        placeholder="São Paulo">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Rua/Avenida</label>
+                                <input type="text" class="form-control" id="rua" 
+                                    placeholder="Nome da rua">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Número</label>
+                                    <input type="text" class="form-control" id="numero" 
+                                        placeholder="123">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Complemento</label>
+                                    <input type="text" class="form-control" id="complemento" 
+                                        placeholder="Apto 45">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resumo da Compra -->
+                    <div class="resumo-compra">
+                        <h2 class="resumo-titulo">Resumo da Compra</h2>
+                        
+                        <div class="resumo-plano">
+                            <p class="resumo-plano-nome">Plano In Rota Anual</p>
+                            <p class="resumo-proxima">Próxima parcela: 27/01/2026</p>
+                        </div>
+                        
+                        <div class="resumo-valor">
+                            <span class="resumo-valor-numero">R$ 24,99</span>
+                            <p style="color: var(--text-light); font-size: 14px; margin-top: 5px;">
+                                Plano renovado automaticamente
+                            </p>
+                        </div>
+                        
+                        <div class="resumo-total-box">
+                            <span class="resumo-total-label">Total a pagar:</span>
+                            <span class="resumo-total-valor">R$ 24,99</span>
+                        </div>
+                        
+                        <button class="pay-btn" id="payCardBtn">
+                            <i class="fas fa-lock"></i>
+                            Realizar Pagamento
+                        </button>
+                        
+                        <p style="text-align: center; color: var(--text-light); font-size: 12px; margin-top: 15px;">
+                            <i class="fas fa-shield-alt"></i>
+                            Pagamento 100% seguro
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ➤ TELA 2 — PIX -->
+            <section id="pix" class="tab-content">
+                <div class="pix-container">
+                    <div class="pix-header">
+                        <h2 class="pix-title">Pagamento via PIX</h2>
+                        <p class="pix-subtitle">
+                            Faça o pagamento instantaneamente utilizando PIX. 
+                            O QR Code abaixo tem validade de 30 minutos.
+                        </p>
+                    </div>
+                    
+                    <div class="pix-content">
+                        <!-- Valor e Logo -->
+                        <div class="pix-box">
+                            <h3>Valor da Compra</h3>
+                            <div class="pix-valor">R$ 24,99</div>
+                            <img src="/Front-end/images/logoPix.png" class="pix-icon" alt="Logo PIX">
+                            <p style="color: var(--text-light); margin-top: 15px; font-size: 14px;">
+                                Pagamento instantâneo e sem taxas
+                            </p>
+                        </div>
+                        
+                        <!-- QR Code -->
+                        <div class="pix-box">
+                            <h3>QR Code para Pagamento</h3>
+                            <div class="qr-container">
+                                <div class="timer-container" id="pixTimer">
+                                    30:00
+                                </div>
+                                <img src="/Front-end/images/QrCode.png" class="qr-img" alt="QR Code do Pix">
+                            </div>
+                            <button class="copy-btn" id="copyQRCodeBtn">
+                                <i class="fas fa-qrcode"></i>
+                                Copiar Código QR
+                            </button>
+                        </div>
+                        
+                        <!-- Chave PIX -->
+                        <div class="pix-box">
+                            <h3>Chave PIX (E-mail)</h3>
+                            <div class="pix-key" id="pixKey">
+                                pix.inrota@usainfo.com.br
+                            </div>
+                            <button class="copy-btn" id="copyPixKeyBtn">
+                                <i class="fas fa-copy"></i>
+                                Copiar Chave PIX
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Instruções -->
+                    <div class="pix-instructions">
+                        <h3 class="instructions-title">Como pagar com PIX:</h3>
+                        <ul class="instructions-list">
+                            <li><i class="fas fa-check-circle"></i> Abra o aplicativo do seu banco</li>
+                            <li><i class="fas fa-check-circle"></i> Acesse a função PIX</li>
+                            <li><i class="fas fa-check-circle"></i> Escolha "Pagar com QR Code"</li>
+                            <li><i class="fas fa-check-circle"></i> Aponte a câmera para o QR Code acima</li>
+                            <li><i class="fas fa-check-circle"></i> Confirme o pagamento de R$ 24,99</li>
+                            <li><i class="fas fa-check-circle"></i> Aguarde a confirmação automática</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ➤ TELA 3 — BOLETO BANCÁRIO -->
+            <section id="boleto" class="tab-content">
+                <div class="boleto-container">
+                    <div class="boleto-header">
+                        <h2 class="boleto-title">Boleto Bancário</h2>
+                        <p class="boleto-subtitle">
+                            O boleto bancário pode ser pago em qualquer banco, casa lotérica ou via internet banking.
+                        </p>
+                        <div class="boleto-vencimento">
+                            <i class="fas fa-calendar-alt"></i>
+                            Vencimento: 05/02/2024
+                        </div>
+                    </div>
+                    
+                    <div class="boleto-content">
+                        <!-- Código de Barras -->
+                        <div class="boleto-code-container">
+                            <label class="boleto-label">Código de Barras</label>
+                            <div class="boleto-code" id="boletoCode">
+                                34191.79001 01043.510047 91020.150008 8 85610000024990
+                            </div>
+                            <button class="copy-btn" id="copyBoletoCodeBtn" style="max-width: 300px;">
+                                <i class="fas fa-copy"></i>
+                                Copiar Código
+                            </button>
+                        </div>
+                        
+                        <!-- Código de Barras Visual -->
+                        <div class="barcode-container">
+                            <label class="boleto-label">Código de Barras para Pagamento</label>
+                            <img src="/images/codigoBarras.png" class="barcode-img" alt="Código de barras do boleto">
+                            <p style="color: var(--text-light); font-size: 14px; margin-top: 10px;">
+                                Apresente este código em qualquer banco ou lotérica
+                            </p>
+                        </div>
+                        
+                        <!-- Informações do Boleto -->
+                        <div class="pix-instructions">
+                            <h3 class="instructions-title">Informações Importantes:</h3>
+                            <ul class="instructions-list">
+                                <li><i class="fas fa-exclamation-triangle"></i> O boleto tem validade de 3 dias úteis</li>
+                                <li><i class="fas fa-exclamation-triangle"></i> Após o pagamento, a confirmação pode levar até 2 dias úteis</li>
+                                <li><i class="fas fa-exclamation-triangle"></i> Não aceitamos boletos vencidos</li>
+                                <li><i class="fas fa-exclamation-triangle"></i> Imprima ou salve o boleto para pagamento</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Ações -->
+                        <div class="boleto-actions">
+                            <button class="pdf-btn" id="downloadBoletoBtn">
+                                <i class="fas fa-download"></i>
+                                Baixar Boleto (PDF)
+                            </button>
+                            <button class="print-btn" id="printBoletoBtn">
+                                <i class="fas fa-print"></i>
+                                Imprimir Boleto
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-check-circle"></i> Pagamento Confirmado!</h3>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon success">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <p class="modal-message" id="modalMessage">
+                    Seu pagamento foi processado com sucesso!
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="closeModalBtn">Fechar</button>
+                <button class="btn-primary" id="viewInvoiceBtn">Ver Comprovante</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript Personalizado -->
+    <script>
+        // Elementos DOM
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarClose = document.getElementById('sidebarClose');
+        const overlay = document.getElementById('overlay');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const successModal = document.getElementById('successModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const viewInvoiceBtn = document.getElementById('viewInvoiceBtn');
+        const modalMessage = document.getElementById('modalMessage');
+
+        // Cartão de Crédito
+        const cardNumber = document.getElementById('cardNumber');
+        const cardHolder = document.getElementById('cardHolder');
+        const cardExpiry = document.getElementById('cardExpiry');
+        const cardCVV = document.getElementById('cardCVV');
+        const payCardBtn = document.getElementById('payCardBtn');
+        const previewCardNumber = document.getElementById('previewCardNumber');
+        const previewCardHolder = document.getElementById('previewCardHolder');
+        const previewCardExpiry = document.getElementById('previewCardExpiry');
+
+        // PIX
+        const pixTimer = document.getElementById('pixTimer');
+        const copyQRCodeBtn = document.getElementById('copyQRCodeBtn');
+        const copyPixKeyBtn = document.getElementById('copyPixKeyBtn');
+        const pixKey = document.getElementById('pixKey');
+
+        // Boleto
+        const copyBoletoCodeBtn = document.getElementById('copyBoletoCodeBtn');
+        const downloadBoletoBtn = document.getElementById('downloadBoletoBtn');
+        const printBoletoBtn = document.getElementById('printBoletoBtn');
+        const boletoCode = document.getElementById('boletoCode');
+
+        // Dados de Pagamento
+        const paymentData = {
+            plan: "Plano In Rota Anual",
+            amount: 24.99,
+            nextPayment: "27/01/2026",
+            paymentMethod: ""
+        };
+
+        // Inicializar
+        function initialize() {
+            // Event Listeners para o menu lateral
+            menuToggle.addEventListener('click', toggleSidebar);
+            sidebarClose.addEventListener('click', toggleSidebar);
+            overlay.addEventListener('click', toggleSidebar);
+            
+            // Event Listener para logout
+            logoutBtn.addEventListener('click', handleLogout);
+            
+            // Event Listeners para abas
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = btn.getAttribute('data-target');
+                    switchTab(target);
+                });
+            });
+            
+            // Event Listeners para cartão de crédito
+            cardNumber.addEventListener('input', formatCardNumber);
+            cardHolder.addEventListener('input', updateCardPreview);
+            cardExpiry.addEventListener('input', formatCardExpiry);
+            cardCVV.addEventListener('input', formatCardCVV);
+            payCardBtn.addEventListener('click', processCardPayment);
+            
+            // Event Listeners para PIX
+            copyQRCodeBtn.addEventListener('click', copyQRCode);
+            copyPixKeyBtn.addEventListener('click', copyPixKey);
+            
+            // Event Listeners para boleto
+            copyBoletoCodeBtn.addEventListener('click', copyBoletoCode);
+            downloadBoletoBtn.addEventListener('click', downloadBoleto);
+            printBoletoBtn.addEventListener('click', printBoleto);
+            
+            // Event Listeners para modal
+            closeModalBtn.addEventListener('click', closeModal);
+            viewInvoiceBtn.addEventListener('click', viewInvoice);
+            
+            // Inicializar timer do PIX
+            startPixTimer();
+            
+            // Inicializar máscaras de input
+            initializeInputMasks();
+        }
+
+        // Alternar barra lateral
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+            
+            if (sidebar.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Trocar de aba
+        function switchTab(target) {
+            // Remover ativo de todas as abas
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Ativar aba selecionada
+            const activeBtn = document.querySelector(`.tab-btn[data-target="${target}"]`);
+            const activeContent = document.getElementById(target);
+            
+            activeBtn.classList.add('active');
+            activeContent.classList.add('active');
+            
+            // Atualizar método de pagamento
+            paymentData.paymentMethod = target;
+            
+            // Reiniciar timer do PIX se for a aba PIX
+            if (target === 'pix') {
+                startPixTimer();
+            }
+        }
+
+        // Formatar número do cartão
+        function formatCardNumber(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            // Adicionar espaços a cada 4 dígitos
+            value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+            
+            // Limitar a 19 caracteres (16 dígitos + 3 espaços)
+            value = value.substring(0, 19);
+            
+            e.target.value = value;
+            updateCardPreview();
+        }
+
+        // Formatar data de validade
+        function formatCardExpiry(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            // Adicionar barra após 2 dígitos
+            if (value.length > 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            
+            // Limitar a 5 caracteres
+            value = value.substring(0, 5);
+            
+            e.target.value = value;
+            updateCardPreview();
+        }
+
+        // Formatar CVV
+        function formatCardCVV(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            // Limitar a 4 dígitos (para Amex)
+            value = value.substring(0, 4);
+            
+            e.target.value = value;
+        }
+
+        // Atualizar preview do cartão
+        function updateCardPreview() {
+            // Número do cartão
+            let cardNum = cardNumber.value || '**** **** **** ****';
+            if (cardNum === '**** **** **** ****') {
+                previewCardNumber.textContent = cardNum;
+            } else {
+                // Manter apenas os últimos 4 dígitos visíveis
+                const visibleDigits = cardNum.substring(cardNum.length - 4);
+                previewCardNumber.textContent = '•••• •••• •••• ' + visibleDigits;
+            }
+            
+            // Nome do titular
+            previewCardHolder.textContent = cardHolder.value.toUpperCase() || 'NOME DO TITULAR';
+            
+            // Data de validade
+            previewCardExpiry.textContent = cardExpiry.value || 'MM/AA';
+        }
+
+        // Processar pagamento com cartão
+        function processCardPayment() {
+            // Validar campos
+            if (!validateCardForm()) {
+                showNotification('Preencha todos os campos obrigatórios corretamente', 'error');
+                return;
+            }
+            
+            // Simular processamento
+            showNotification('Processando pagamento...', 'info');
+            
+            // Simular atraso no processamento
+            setTimeout(() => {
+                paymentData.paymentMethod = 'cartao';
+                modalMessage.textContent = 'Seu pagamento no cartão foi processado com sucesso! O plano será ativado em instantes.';
+                successModal.style.display = 'flex';
+            }, 2000);
+        }
+
+        // Validar formulário do cartão
+        function validateCardForm() {
+            const fields = [
+                { element: cardNumber, message: 'Número do cartão inválido' },
+                { element: cardHolder, message: 'Nome do titular obrigatório' },
+                { element: cardExpiry, message: 'Data de validade inválida' },
+                { element: cardCVV, message: 'CVV inválido' }
+            ];
+            
+            for (let field of fields) {
+                if (!field.element.value.trim()) {
+                    field.element.focus();
+                    return false;
+                }
+            }
+            
+            // Validar formato da data de validade
+            const expiryRegex = /^(0[1-9]|1[0-2])\/([0-9]{2})$/;
+            if (!expiryRegex.test(cardExpiry.value)) {
+                cardExpiry.focus();
+                return false;
+            }
+            
+            return true;
+        }
+
+        // Iniciar timer do PIX
+        function startPixTimer() {
+            let time = 30 * 60; // 30 minutos em segundos
+            
+            const updateTimer = () => {
+                const minutes = Math.floor(time / 60);
+                const seconds = time % 60;
+                
+                pixTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Mudar cor quando restar menos de 5 minutos
+                if (time <= 5 * 60) {
+                    pixTimer.style.background = 'var(--danger-red)';
+                }
+                
+                if (time <= 0) {
+                    clearInterval(timer);
+                    pixTimer.textContent = 'Expirado';
+                    showNotification('QR Code PIX expirado. Atualize a página para gerar um novo.', 'error');
+                }
+                
+                time--;
+            };
+            
+            // Atualizar imediatamente e a cada segundo
+            updateTimer();
+            const timer = setInterval(updateTimer, 1000);
+            
+            // Armazenar timer para limpar se necessário
+            window.pixTimerInterval = timer;
+        }
+
+        // Copiar QR Code
+        function copyQRCode() {
+            // Em um sistema real, isso copiaria o código do QR Code
+            // Para demonstração, copiaremos o valor do PIX
+            navigator.clipboard.writeText(pixKey.textContent)
+                .then(() => {
+                    showNotification('Código copiado para a área de transferência!', 'success');
+                })
+                .catch(err => {
+                    showNotification('Erro ao copiar código', 'error');
+                });
+        }
+
+        // Copiar chave PIX
+        function copyPixKey() {
+            navigator.clipboard.writeText(pixKey.textContent)
+                .then(() => {
+                    showNotification('Chave PIX copiada para a área de transferência!', 'success');
+                })
+                .catch(err => {
+                    showNotification('Erro ao copiar chave PIX', 'error');
+                });
+        }
+
+        // Copiar código do boleto
+        function copyBoletoCode() {
+            const code = boletoCode.textContent.replace(/\s/g, '');
+            navigator.clipboard.writeText(code)
+                .then(() => {
+                    showNotification('Código do boleto copiado!', 'success');
+                })
+                .catch(err => {
+                    showNotification('Erro ao copiar código', 'error');
+                });
+        }
+
+        // Baixar boleto em PDF
+        function downloadBoleto() {
+            showNotification('Gerando boleto em PDF...', 'info');
+            
+            // Simular geração de PDF
+            setTimeout(() => {
+                // Em um sistema real, isso faria o download do PDF
+                // Para demonstração, mostramos uma notificação
+                showNotification('Boleto baixado com sucesso!', 'success');
+                
+                // Simular pagamento automático após download
+                paymentData.paymentMethod = 'boleto';
+                modalMessage.textContent = 'Boleto gerado com sucesso! Após o pagamento, seu plano será ativado em até 2 dias úteis.';
+                successModal.style.display = 'flex';
+            }, 1500);
+        }
+
+        // Imprimir boleto
+        function printBoleto() {
+            showNotification('Preparando para impressão...', 'info');
+            
+            // Em um sistema real, isso abriria a janela de impressão
+            setTimeout(() => {
+                window.print();
+            }, 500);
+        }
+
+        // Inicializar máscaras de input
+        function initializeInputMasks() {
+            // Máscara para CEP
+            const cepInput = document.getElementById('cep');
+            if (cepInput) {
+                cepInput.addEventListener('input', (e) => {
+                    let value = e.target.value.replace(/\D/g, '');
+                    
+                    if (value.length > 5) {
+                        value = value.substring(0, 5) + '-' + value.substring(5, 8);
+                    }
+                    
+                    value = value.substring(0, 9);
+                    e.target.value = value;
+                });
+            }
+        }
+
+        // Processar logout
+        function handleLogout() {
+            showNotification('Saindo da conta...', 'info');
+            
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1500);
+        }
+
+        // Fechar modal
+        function closeModal() {
+            successModal.style.display = 'none';
+            
+            // Redirecionar para home após pagamento bem-sucedido
+            if (paymentData.paymentMethod) {
+                setTimeout(() => {
+                    window.location.href = 'home.html';
+                }, 500);
+            }
+        }
+
+        // Ver comprovante
+        function viewInvoice() {
+            showNotification('Gerando comprovante...', 'info');
+            
+            // Em um sistema real, isso abriria o comprovante
+            setTimeout(() => {
+                window.open('#', '_blank');
+            }, 1000);
+        }
+
+        // Mostrar notificação
+        function showNotification(message, type = 'info') {
+            // Criar elemento de notificação
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            
+            // Estilo por tipo
+            switch(type) {
+                case 'success':
+                    notification.style.borderLeftColor = 'var(--success-green)';
+                    break;
+                case 'error':
+                    notification.style.borderLeftColor = 'var(--danger-red)';
+                    break;
+                case 'info':
+                    notification.style.borderLeftColor = 'var(--accent-blue)';
+                    break;
+            }
+            
+            document.body.appendChild(notification);
+            
+            // Remover após 3 segundos
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 3000);
+        }
+
+        // Inicializar quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', initialize);
+    </script>
+</body>
+</html>
