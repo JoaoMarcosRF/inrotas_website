@@ -26,7 +26,7 @@
         </div>
         
         <div class="user-controls">
-            <div class="perfil" onclick="window.location.href='perfil_usuario.html'">
+            <div class="perfil" onclick="window.location.href='perfil.html'">
                 <img src="/images/fotoUsuario.png" alt="Foto do usuário" class="user-avatar">
                 <span class="user-name">Usuário</span>
             </div>
@@ -70,12 +70,12 @@
                 <span>Minhas Preferências</span>
             </a>
             
-            <a href="rotas_salvas.html" class="menu-item">
+            <a href="/pages/parceiro/minhas-rotas.html" class="menu-item">
                 <i class="fas fa-bookmark"></i>
                 <span>Rotas Salvas</span>
             </a>
             
-            <a href="historico.html" class="menu-item">
+            <a href="#" class="menu-item">
                 <i class="fas fa-history"></i>
                 <span>Histórico</span>
             </a>
@@ -85,14 +85,14 @@
                 <span>Agenda Cultural</span>
             </a>
             
-            <a href="configuracoes.html" class="menu-item">
+            <a href="/pages/parceiro/configuracoes-parceiros.html" class="menu-item">
                 <i class="fas fa-cog"></i>
                 <span>Configurações</span>
             </a>
             
             <div class="menu-divider"></div>
             
-            <a href="ajuda.html" class="menu-item">
+            <a href="#" class="menu-item">
                 <i class="fas fa-question-circle"></i>
                 <span>Ajuda e Suporte</span>
             </a>
@@ -712,7 +712,7 @@
             showNotification('Saindo da conta...', 'info');
             
             setTimeout(() => {
-                window.location.href = 'login.html';
+                window.location.href = '/pages/usuario/acesso_geral.html';
             }, 1500);
         }
 
